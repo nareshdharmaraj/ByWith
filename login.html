@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - ByWith</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { darkMode: 'class', theme: { extend: { colors: { slate: { 800: '#1e293b', 900: '#0f172a' } } } } }</script>
+    <link href="./css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .switch-container {
+            transition: all 0.6s ease-in-out;
+        }
+
+        .form-container {
+            transition: opacity 0.4s ease-in-out, visibility 0.4s;
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 50%;
+        }
+
+        .overlay-panel {
+            transition: transform 0.6s ease-in-out;
+        }
+
+        /* Mobile specific adjustments handled by flex-col logic in HTML/Tailwind, but complex overlay logic is best for md+ screens. Mobile will stack. */
+        @media (max-width: 768px) {
+            .form-container {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .mobile-hidden {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body
+    class="bg-gray-100 dark:bg-slate-900 flex items-center justify-center min-h-screen p-4 transition-colors duration-300">
+
+    <div id="preloader">
+        <div class="trolley-container"><i class="fas fa-shopping-cart trolley"></i></div>
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Main Card -->
+    <div
+        class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl relative overflow-hidden w-full max-w-4xl min-h-[600px] flex flex-col md:block">
+
+        <!-- Navbar Helper (Quick Home Link) -->
+        <a href="index.html"
+            class="absolute top-6 left-6 z-50 text-slate-500 hover:text-indigo-600 dark:text-slate-400"><i
+                class="fas fa-arrow-left"></i> Home</a>
+        <button class="theme-toggle-btn absolute top-6 right-6 z-50" onclick="toggleTheme()"><i
+                class="fas fa-lightbulb bulb-icon"></i></button>
+
+        <!-- Sign Up Form (Right Side originally, moves left) -->
+        <div class="form-container md:left-0 md:opacity-0 md:z-10 bg-white dark:bg-slate-800 flex items-center justify-center p-8 w-full md:w-1/2"
+            id="signUpForm">
+            <form class="w-full max-w-sm text-center">
+                <h1 class="font-bold text-3xl mb-4 dark:text-white">Create Account</h1>
+                <div class="flex justify-center gap-4 mb-4">
+                    <a href="#"
+                        class="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50 dark:border-slate-600 dark:hover:bg-slate-700 dark:text-white"><i
+                            class="fab fa-google"></i></a>
+                    <a href="#"
+                        class="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50 dark:border-slate-600 dark:hover:bg-slate-700 dark:text-white"><i
+                            class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span class="text-xs text-slate-400">or use your email for registration</span>
+                <input type="text" placeholder="Name"
+                    class="w-full bg-gray-100 dark:bg-slate-700 dark:text-white px-4 py-3 rounded-lg mt-4 border-none focus:ring-2 focus:ring-indigo-500 outline-none">
+                <input type="email" placeholder="Email"
+                    class="w-full bg-gray-100 dark:bg-slate-700 dark:text-white px-4 py-3 rounded-lg mt-4 border-none focus:ring-2 focus:ring-indigo-500 outline-none">
+                <input type="password" placeholder="Password"
+                    class="w-full bg-gray-100 dark:bg-slate-700 dark:text-white px-4 py-3 rounded-lg mt-4 border-none focus:ring-2 focus:ring-indigo-500 outline-none">
+                <button type="button"
+                    class="mt-8 bg-indigo-600 text-white font-bold py-3 px-10 rounded-full hover:bg-indigo-700 transition uppercase tracking-wider shadow-lg shadow-indigo-500/30"
+                    onclick="window.location.href='user-dashboard.html'">Sign Up</button>
+                <div class="mt-4 md:hidden">
+                    <button type="button" class="text-indigo-500 text-sm" onclick="toggleMobileForm()">Already have an
+                        account? Sign In</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Sign In Form (Left Side originally) -->
+        <div class="form-container md:left-0 md:z-20 bg-white dark:bg-slate-800 flex items-center justify-center p-8 w-full md:w-1/2"
+            id="signInForm">
+            <form class="w-full max-w-sm text-center">
+                <h1 class="font-bold text-3xl mb-4 dark:text-white">Sign in to ByWith</h1>
+                <div class="flex justify-center gap-4 mb-4">
+                    <a href="#"
+                        class="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50 dark:border-slate-600 dark:hover:bg-slate-700 dark:text-white"><i
+                            class="fab fa-google"></i></a>
+                    <a href="#"
+                        class="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50 dark:border-slate-600 dark:hover:bg-slate-700 dark:text-white"><i
+                            class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span class="text-xs text-slate-400">or use your email account</span>
+                <input type="email" placeholder="Email"
+                    class="w-full bg-gray-100 dark:bg-slate-700 dark:text-white px-4 py-3 rounded-lg mt-4 border-none focus:ring-2 focus:ring-indigo-500 outline-none">
+                <input type="password" placeholder="Password"
+                    class="w-full bg-gray-100 dark:bg-slate-700 dark:text-white px-4 py-3 rounded-lg mt-4 border-none focus:ring-2 focus:ring-indigo-500 outline-none">
+                <a href="#" class="text-xs text-slate-500 mt-2 block hover:text-indigo-600">Forgot your password?</a>
+                <button type="button"
+                    class="mt-8 bg-indigo-600 text-white font-bold py-3 px-10 rounded-full hover:bg-indigo-700 transition uppercase tracking-wider shadow-lg shadow-indigo-500/30"
+                    onclick="window.location.href='user-dashboard.html'">Sign In</button>
+                <div class="mt-4 md:hidden">
+                    <button type="button" class="text-indigo-500 text-sm" onclick="toggleMobileForm()">New here? Sign
+                        Up</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Overlay Container (Desktop Only) -->
+        <div class="hidden md:block absolute top-0 left-1/2 w-1/2 h-full overflow-hidden transition-transform duration-600 z-100"
+            id="overlayContainer">
+            <div class="bg-gradient-to-r from-indigo-600 to-indigo-400 text-white h-full w-[200%] relative -left-full transform transition-transform duration-600"
+                id="overlay">
+                <!-- Overlay Left (Show when Right Panel Active) -->
+                <div
+                    class="absolute top-0 flex flex-col items-center justify-center h-full w-1/2 left-0 p-10 text-center transform translate-x-[0%] transition-transform duration-600">
+                    <h1 class="font-bold text-4xl mb-4">Welcome Back!</h1>
+                    <p class="mb-8">To keep connected with us please login with your personal info</p>
+                    <button
+                        class="bg-transparent border border-white text-white font-bold py-3 px-10 rounded-full hover:bg-white hover:text-indigo-600 transition uppercase tracking-wider"
+                        id="signInBtn">Sign In</button>
+                </div>
+                <!-- Overlay Right (Show when Left Panel Active) -->
+                <div
+                    class="absolute top-0 flex flex-col items-center justify-center h-full w-1/2 right-0 p-10 text-center transform translate-x-[0%] transition-transform duration-600">
+                    <h1 class="font-bold text-4xl mb-4">Hello, Friend!</h1>
+                    <p class="mb-8">Enter your personal details and start your journey with us</p>
+                    <button
+                        class="bg-transparent border border-white text-white font-bold py-3 px-10 rounded-full hover:bg-white hover:text-indigo-600 transition uppercase tracking-wider"
+                        id="signUpBtn">Sign Up</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="./js/rtl-toggle.js"></script>
+    <script src="./js/main.js"></script>
+    <script>
+        const signUpBtn = document.getElementById('signUpBtn');
+        const signInBtn = document.getElementById('signInBtn');
+        const container = document.querySelector('.bg-white.rounded-2xl'); // Main container logic needs custom class binding or ID
+        const signInForm = document.getElementById('signInForm');
+        const signUpForm = document.getElementById('signUpForm');
+        const overlayContainer = document.getElementById('overlayContainer');
+        const overlay = document.getElementById('overlay');
+
+        let isSignUp = false;
+
+        function toggleForm() {
+            isSignUp = !isSignUp;
+            if (isSignUp) {
+                // Move Overlay Left
+                overlayContainer.classList.add('-translate-x-full');
+                // Hide Sign In, Show Sign Up
+                signInForm.classList.remove('md:z-20', 'md:opacity-100');
+                signInForm.classList.add('md:opacity-0', 'md:z-10');
+
+                signUpForm.classList.remove('md:opacity-0', 'md:z-10');
+                signUpForm.classList.add('md:z-20', 'md:opacity-100');
+            } else {
+                // Move Overlay Right
+                overlayContainer.classList.remove('-translate-x-full');
+                // Show Sign In, Hide Sign Up
+                signInForm.classList.add('md:z-20', 'md:opacity-100');
+                signInForm.classList.remove('md:opacity-0', 'md:z-10');
+
+                signUpForm.classList.add('md:opacity-0', 'md:z-10');
+                signUpForm.classList.remove('md:z-20', 'md:opacity-100');
+            }
+        }
+
+        signUpBtn.addEventListener('click', toggleForm);
+        signInBtn.addEventListener('click', toggleForm);
+
+        // Mobile Toggle
+        function toggleMobileForm() {
+            if (signInForm.style.display === 'none') {
+                signInForm.style.display = 'flex';
+                signUpForm.style.display = 'none';
+            } else {
+                signInForm.style.display = 'none';
+                signUpForm.style.display = 'flex';
+            }
+        }
+        // Initialize mobile state
+        if (window.innerWidth < 768) {
+            signUpForm.style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>

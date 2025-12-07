@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - ByWith</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { darkMode: 'class', theme: { extend: { colors: { slate: { 800: '#1e293b', 900: '#0f172a' } } } } }</script>
+    <link href="./css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="bg-gray-50 text-slate-900 transition-colors duration-300 dark:bg-slate-900 dark:text-white">
+
+    <div id="preloader">
+        <div class="trolley-container"><i class="fas fa-shopping-cart trolley"></i></div>
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- MASTER NAVBAR -->
+    <nav
+        class="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-100 dark:bg-slate-900/90 dark:border-slate-800 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center gap-2 group">
+                        <div
+                            class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white text-xl font-bold group-hover:scale-105 transition-transform">
+                            B</div>
+                        <span
+                            class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-indigo-400">ByWith</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center gap-8">
+                    <div class="nav-dropdown group">
+                        <button
+                            class="font-medium text-slate-700 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 transition flex items-center gap-1">Home
+                            <i class="fas fa-chevron-down text-xs"></i></button>
+                        <div class="nav-dropdown-content">
+                            <a href="index.html"
+                                class="block px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200">Home
+                                Corporate</a>
+                            <a href="index2.html"
+                                class="block px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200">Home
+                                Shopping</a>
+                        </div>
+                    </div>
+                    <a href="product.html"
+                        class="font-medium text-slate-700 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 transition">Products</a>
+                    <div class="nav-dropdown group">
+                        <button
+                            class="font-medium text-slate-700 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 transition flex items-center gap-1">Dashboard
+                            <i class="fas fa-chevron-down text-xs"></i></button>
+                        <div class="nav-dropdown-content">
+                            <a href="user-dashboard.html"
+                                class="block px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200">User
+                                Dashboard</a>
+                            <a href="admin-dashboard.html"
+                                class="block px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200">Admin
+                                Dashboard</a>
+                        </div>
+                    </div>
+                    <a href="about.html"
+                        class="font-medium text-slate-700 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 transition">About</a>
+                    <a href="contact.html"
+                        class="font-medium text-slate-700 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 transition">Contact</a>
+                    <a href="faq.html"
+                        class="px-4 py-1.5 border border-indigo-200 text-indigo-600 rounded-lg hover:bg-indigo-50 dark:border-indigo-800 dark:text-indigo-400 dark:hover:bg-slate-800 transition">FAQ</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleRTL()"
+                        class="rtl-toggle-btn p-2 text-slate-500 hover:text-indigo-600 transition dark:text-slate-400"><i
+                            class="fas fa-globe"></i></button>
+                    <button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Dark Mode"><i
+                            class="fas fa-lightbulb bulb-icon"></i></button>
+                    <a href="cart.html"
+                        class="relative p-2 text-slate-500 hover:text-indigo-600 transition dark:text-slate-400"><i
+                            class="fas fa-shopping-cart"></i><span
+                            class="cart-count absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center hidden">0</span></a>
+                    <!-- Mobile Menu Button -->
+                    <button onclick="toggleMobileMenu()"
+                        class="md:hidden mobile-menu-btn p-2 text-slate-700 dark:text-white focus:outline-none"><i
+                            class="fas fa-bars text-xl"></i></button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-white dark:bg-slate-900 border-t border-gray-100 dark:border-slate-800 absolute top-20 start-0 w-full p-6 shadow-xl z-40 animate-fade-in-up">
+            <div class="flex flex-col gap-4 text-center">
+                <!-- Home Dropdown -->
+                <div class="flex flex-col">
+                    <button onclick="toggleMobileSubmenu('mob-home-sub')"
+                        class="font-bold text-lg dark:text-white py-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded flex justify-center items-center gap-2">Home
+                        <i class="fas fa-chevron-down text-xs"></i></button>
+                    <div id="mob-home-sub" class="hidden flex-col gap-2 bg-slate-50 dark:bg-slate-800 rounded p-2 mt-1">
+                        <a href="index.html" class="text-slate-600 dark:text-slate-300 py-1 hover:text-indigo-600">Home
+                            Corporate</a>
+                        <a href="index2.html" class="text-slate-600 dark:text-slate-300 py-1 hover:text-indigo-600">Home
+                            Shopping</a>
+                    </div>
+                </div>
+
+                <a href="product.html"
+                    class="text-slate-600 dark:text-slate-300 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded">Products</a>
+
+                <!-- Dashboard Dropdown -->
+                <div class="flex flex-col">
+                    <button onclick="toggleMobileSubmenu('mob-dash-sub')"
+                        class="text-slate-600 dark:text-slate-300 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded flex justify-center items-center gap-2">Dashboard
+                        <i class="fas fa-chevron-down text-xs"></i></button>
+                    <div id="mob-dash-sub" class="hidden flex-col gap-2 bg-slate-50 dark:bg-slate-800 rounded p-2 mt-1">
+                        <a href="user-dashboard.html"
+                            class="text-slate-600 dark:text-slate-300 py-1 hover:text-indigo-600">User Dashboard</a>
+                        <a href="admin-dashboard.html"
+                            class="text-slate-600 dark:text-slate-300 py-1 hover:text-indigo-600">Admin Dashboard</a>
+                    </div>
+                </div>
+
+                <a href="about.html"
+                    class="text-slate-600 dark:text-slate-300 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded">About</a>
+                <a href="contact.html"
+                    class="text-slate-600 dark:text-slate-300 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-6">Secure Checkout</h1>
+
+        <div class="flex flex-col lg:flex-row gap-6">
+            <!-- Form -->
+            <div
+                class="lg:w-2/3 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 p-8">
+                <h3 class="font-bold text-xl mb-6">Shipping Details</h3>
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div><label class="block text-sm font-bold mb-2">First Name</label><input
+                                class="w-full px-4 py-3 rounded-lg border dark:bg-slate-900 dark:border-slate-600">
+                        </div>
+                        <div><label class="block text-sm font-bold mb-2">Last Name</label><input
+                                class="w-full px-4 py-3 rounded-lg border dark:bg-slate-900 dark:border-slate-600">
+                        </div>
+                    </div>
+                    <div><label class="block text-sm font-bold mb-2">Address</label><input
+                            class="w-full px-4 py-3 rounded-lg border dark:bg-slate-900 dark:border-slate-600"></div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div><label class="block text-sm font-bold mb-2">City</label><input
+                                class="w-full px-4 py-3 rounded-lg border dark:bg-slate-900 dark:border-slate-600">
+                        </div>
+                        <div><label class="block text-sm font-bold mb-2">State</label><input
+                                class="w-full px-4 py-3 rounded-lg border dark:bg-slate-900 dark:border-slate-600">
+                        </div>
+                        <div><label class="block text-sm font-bold mb-2">ZIP</label><input
+                                class="w-full px-4 py-3 rounded-lg border dark:bg-slate-900 dark:border-slate-600">
+                        </div>
+                    </div>
+
+                    <h3 class="font-bold text-xl mb-4 mt-8">Payment Info</h3>
+                    <div class="space-y-4">
+                        <div
+                            class="p-4 border rounded-lg flex items-center gap-4 cursor-pointer hover:bg-gray-50 dark:border-slate-600 dark:hover:bg-slate-700">
+                            <input type="radio" name="pay" checked>
+                            <i class="fab fa-cc-visa text-2xl text-indigo-900 dark:text-white"></i>
+                            <span class="font-bold">Credit/Debit Card</span>
+                        </div>
+                        <div
+                            class="p-4 border rounded-lg flex items-center gap-4 cursor-pointer hover:bg-gray-50 dark:border-slate-600 dark:hover:bg-slate-700">
+                            <input type="radio" name="pay">
+                            <i class="fab fa-paypal text-2xl text-blue-700"></i>
+                            <span class="font-bold">PayPal</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Summary -->
+            <div class="lg:w-1/3 space-y-8">
+                <div
+                    class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 p-8">
+                    <h3 class="font-bold text-xl mb-6">Order Summary</h3>
+                    <div class="space-y-4 mb-6 text-sm">
+                        <div class="flex justify-between"><span>Nike Air Max x 1</span><span>$120.00</span></div>
+                        <div class="flex justify-between"><span>Sony Headphones x 1</span><span>$350.00</span></div>
+                        <div
+                            class="border-t border-gray-100 dark:border-slate-700 pt-4 flex justify-between font-bold text-lg">
+                            <span>Total</span><span>$507.60</span>
+                        </div>
+                    </div>
+                    <button
+                        class="block w-full bg-indigo-600 text-white text-center py-4 rounded-lg font-bold hover:bg-indigo-700 transition shadow-lg shadow-indigo-600/20">Pay
+                        Now</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- MASTER FOOTER (Compact 1x3) -->
+    <footer class="bg-indigo-950 text-white pt-3 md:pt-4 pb-2 md:pb-3">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6 mb-2 md:mb-4">
+            <!-- Col 1: Brand -->
+            <div>
+                <div class="flex items-center gap-2 mb-2 md:mb-3">
+                    <div class="w-7 h-7 md:w-8 md:h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">
+                        B</div>
+                    <span class="text-lg md:text-xl font-bold">ByWith</span>
+                </div>
+                <p class="text-indigo-200 text-xs md:text-sm">Empowering your business journey.</p>
+            </div>
+            <!-- Col 2: Quick Links (Merged) -->
+            <div class="text-center md:text-start">
+                <h4 class="font-bold mb-2 md:mb-3 text-xs md:text-sm uppercase tracking-wider opacity-70">Quick Links</h4>
+                <div class="flex flex-wrap gap-3 md:gap-4 text-xs md:text-sm text-indigo-200 justify-center md:justify-start">
+                    <a href="product.html" class="hover:text-white transition">Products</a>
+                    <a href="about.html" class="hover:text-white transition">About</a>
+                    <a href="contact.html" class="hover:text-white transition">Contact</a>
+                    <a href="faq.html" class="hover:text-white transition">FAQ</a>
+                    <a href="user-dashboard.html" class="hover:text-white transition">My Account</a>
+                </div>
+            </div>
+            <!-- Col 3: Connect -->
+            <div class="flex flex-col md:items-end items-center">
+                <h4 class="font-bold mb-2 md:mb-3 text-xs md:text-sm uppercase tracking-wider opacity-70">Connect</h4>
+                <div class="flex gap-3 md:gap-4">
+                    <a href="#"
+                        class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-indigo-600 transition"><i
+                            class="fab fa-linkedin-in text-xs"></i></a>
+                    <a href="#"
+                        class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-indigo-600 transition"><i
+                            class="fab fa-twitter text-xs"></i></a>
+                    <a href="#"
+                        class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-indigo-600 transition"><i
+                            class="fab fa-instagram text-xs"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-indigo-900 pt-2 md:pt-4 text-center text-xs text-indigo-400">&copy; 2025 ByWith Inc. All
+            rights reserved.</div>
+    </footer>
+
+    <script src="./js/rtl-toggle.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+
+</html>

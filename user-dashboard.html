@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - ByWith</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { darkMode: 'class', theme: { extend: { colors: { slate: { 800: '#1e293b', 900: '#0f172a' } } } } }</script>
+    <link href="./css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-slate-900 transition-colors duration-300 dark:bg-slate-900 dark:text-white">
+
+    <div id="preloader">
+        <div class="trolley-container"><i class="fas fa-shopping-cart trolley"></i></div>
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- MASTER NAVBAR -->
+    <nav
+        class="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-100 dark:bg-slate-900/90 dark:border-slate-800 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center gap-2 group">
+                        <div
+                            class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white text-xl font-bold group-hover:scale-105 transition-transform">
+                            B</div>
+                        <span
+                            class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-indigo-400">ByWith</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center gap-8">
+                    <div class="nav-dropdown group">
+                        <button
+                            class="font-medium text-slate-700 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 transition flex items-center gap-1">Home
+                            <i class="fas fa-chevron-down text-xs"></i></button>
+                        <div class="nav-dropdown-content">
+                            <a href="index.html"
+                                class="block px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200">Home
+                                Corporate</a>
+                            <a href="index2.html"
+                                class="block px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200">Home
+                                Shopping</a>
+                        </div>
+                    </div>
+                    <a href="product.html"
+                        class="font-medium text-slate-700 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 transition">Products</a>
+                    <div class="nav-dropdown group">
+                        <button
+                            class="font-medium text-indigo-600 dark:text-indigo-400 transition flex items-center gap-1">Dashboard
+                            <i class="fas fa-chevron-down text-xs"></i></button>
+                        <div class="nav-dropdown-content">
+                            <a href="user-dashboard.html"
+                                class="block px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200">User
+                                Dashboard</a>
+                            <a href="admin-dashboard.html"
+                                class="block px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200">Admin
+                                Dashboard</a>
+                        </div>
+                    </div>
+                    <a href="about.html"
+                        class="font-medium text-slate-700 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 transition">About</a>
+                    <a href="contact.html"
+                        class="font-medium text-slate-700 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 transition">Contact</a>
+                    <a href="faq.html"
+                        class="px-4 py-1.5 border border-indigo-200 text-indigo-600 rounded-lg hover:bg-indigo-50 dark:border-indigo-800 dark:text-indigo-400 dark:hover:bg-slate-800 transition">FAQ</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleRTL()"
+                        class="rtl-toggle-btn p-2 text-slate-500 hover:text-indigo-600 transition dark:text-slate-400"><i
+                            class="fas fa-globe"></i></button>
+                    <button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Dark Mode"><i
+                            class="fas fa-lightbulb bulb-icon"></i></button>
+                    <a href="cart.html"
+                        class="relative p-2 text-slate-500 hover:text-indigo-600 transition dark:text-slate-400"><i
+                            class="fas fa-shopping-cart"></i><span
+                            class="cart-count absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center hidden">0</span></a>
+                    <!-- Mobile Menu Button -->
+                    <button onclick="toggleMobileMenu()"
+                        class="md:hidden mobile-menu-btn p-2 text-slate-700 dark:text-white focus:outline-none"><i
+                            class="fas fa-bars text-xl"></i></button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-white dark:bg-slate-900 border-t border-gray-100 dark:border-slate-800 absolute top-20 start-0 w-full p-6 shadow-xl z-40 animate-fade-in-up">
+            <div class="flex flex-col gap-4 text-center">
+                <!-- Home Dropdown -->
+                <div class="flex flex-col">
+                    <button onclick="toggleMobileSubmenu('mob-home-sub')"
+                        class="font-bold text-lg dark:text-white py-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded flex justify-center items-center gap-2">Home
+                        <i class="fas fa-chevron-down text-xs"></i></button>
+                    <div id="mob-home-sub" class="hidden flex-col gap-2 bg-slate-50 dark:bg-slate-800 rounded p-2 mt-1">
+                        <a href="index.html" class="text-slate-600 dark:text-slate-300 py-1 hover:text-indigo-600">Home
+                            Corporate</a>
+                        <a href="index2.html" class="text-slate-600 dark:text-slate-300 py-1 hover:text-indigo-600">Home
+                            Shopping</a>
+                    </div>
+                </div>
+
+                <a href="product.html"
+                    class="text-slate-600 dark:text-slate-300 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded">Products</a>
+
+                <!-- Dashboard Dropdown -->
+                <div class="flex flex-col">
+                    <button onclick="toggleMobileSubmenu('mob-dash-sub')"
+                        class="text-slate-600 dark:text-slate-300 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded flex justify-center items-center gap-2">Dashboard
+                        <i class="fas fa-chevron-down text-xs"></i></button>
+                    <div id="mob-dash-sub" class="hidden flex-col gap-2 bg-slate-50 dark:bg-slate-800 rounded p-2 mt-1">
+                        <a href="user-dashboard.html"
+                            class="text-slate-600 dark:text-slate-300 py-1 hover:text-indigo-600">User Dashboard</a>
+                        <a href="admin-dashboard.html"
+                            class="text-slate-600 dark:text-slate-300 py-1 hover:text-indigo-600">Admin Dashboard</a>
+                    </div>
+                </div>
+
+                <a href="about.html"
+                    class="text-slate-600 dark:text-slate-300 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded">About</a>
+                <a href="contact.html"
+                    class="text-slate-600 dark:text-slate-300 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        <div
+            class="flex flex-col md:flex-row items-center gap-4 mb-8 bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700">
+            <div
+                class="w-16 h-16 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white text-2xl font-bold shadow-lg ring-4 ring-white dark:ring-slate-700">
+                JD</div>
+            <div class="text-center md:text-left">
+                <h1 class="text-2xl font-bold dark:text-white">John Doe</h1>
+                <p class="text-slate-500 dark:text-slate-400">Member since Dec 2024</p>
+                <div class="mt-1"><span
+                        class="bg-indigo-100 text-indigo-700 text-xs font-bold px-2 py-0.5 rounded-full">VIP
+                        Member</span></div>
+            </div>
+            <div class="md:ml-auto flex gap-3">
+                <div class="text-center px-4 border-r border-gray-100 dark:border-slate-600">
+                    <div class="text-xl font-bold dark:text-white">12</div>
+                    <div class="text-xs text-slate-500">Orders</div>
+                </div>
+                <div class="text-center px-4 border-r border-gray-100 dark:border-slate-600">
+                    <div class="text-xl font-bold dark:text-white">0</div>
+                    <div class="text-xs text-slate-500">Returns</div>
+                </div>
+                <div class="text-center px-4">
+                    <div class="text-xl font-bold dark:text-white">5</div>
+                    <div class="text-xs text-slate-500">Reviews</div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 overflow-hidden flex flex-col md:flex-row min-h-[700px]">
+            <!-- Sidebar -->
+            <div
+                class="w-full md:w-64 bg-gray-50 dark:bg-slate-900/50 border-r border-gray-100 dark:border-slate-700 p-4 tab-group flex md:flex-col gap-2 overflow-x-auto hide-scrollbar shrink-0">
+                <button
+                    class="flex items-center gap-3 px-4 py-3 rounded-lg text-left text-sm font-medium text-indigo-600 bg-white dark:bg-slate-800 shadow-sm transition"
+                    data-tab-target="#overview"><i class="fas fa-home w-5"></i> Overview</button>
+                <button
+                    class="flex items-center gap-3 px-4 py-3 rounded-lg text-left text-sm font-medium text-slate-500 hover:bg-white hover:text-indigo-600 dark:hover:bg-slate-800 transition"
+                    data-tab-target="#orders"><i class="fas fa-box w-5"></i> My Orders</button>
+                <button
+                    class="flex items-center gap-3 px-4 py-3 rounded-lg text-left text-sm font-medium text-slate-500 hover:bg-white hover:text-indigo-600 dark:hover:bg-slate-800 transition"
+                    data-tab-target="#returns"><i class="fas fa-undo w-5"></i> Returns <span
+                        class="bg-yellow-100 text-yellow-700 text-[10px] px-1.5 py-0.5 rounded ml-auto">New</span></button>
+                <button
+                    class="flex items-center gap-3 px-4 py-3 rounded-lg text-left text-sm font-medium text-slate-500 hover:bg-white hover:text-indigo-600 dark:hover:bg-slate-800 transition"
+                    data-tab-target="#wishlist"><i class="fas fa-heart w-5"></i> Wishlist</button>
+                <button
+                    class="flex items-center gap-3 px-4 py-3 rounded-lg text-left text-sm font-medium text-slate-500 hover:bg-white hover:text-indigo-600 dark:hover:bg-slate-800 transition"
+                    data-tab-target="#payments"><i class="fas fa-credit-card w-5"></i> Payments</button>
+                <button
+                    class="flex items-center gap-3 px-4 py-3 rounded-lg text-left text-sm font-medium text-slate-500 hover:bg-white hover:text-indigo-600 dark:hover:bg-slate-800 transition"
+                    data-tab-target="#profile"><i class="fas fa-user-cog w-5"></i> Profile</button>
+            </div>
+
+            <!-- Content Area -->
+            <div class="flex-1 p-8 tab-content-group overflow-y-auto">
+
+                <!-- 1. Overview -->
+                <div id="overview" class="tab-content active space-y-8 animate-fade-in-up">
+                    <h2 class="text-2xl font-bold mb-4 border-b pb-2 dark:border-slate-700">Account Overview</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                        <div
+                            class="p-6 rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-600 text-white shadow-lg">
+                            <div class="text-indigo-200 text-sm mb-1 uppercase tracking-wider">Total Spent</div>
+                            <div class="text-3xl font-bold">$4,250.00</div>
+                        </div>
+                        <div
+                            class="p-6 rounded-xl bg-white dark:bg-slate-700 shadow-sm border border-gray-100 dark:border-slate-600">
+                            <div class="text-slate-500 text-sm mb-1 uppercase tracking-wider">Estimated Savings</div>
+                            <div class="text-3xl font-bold text-green-600">$320.00</div>
+                        </div>
+                        <div
+                            class="p-6 rounded-xl bg-white dark:bg-slate-700 shadow-sm border border-gray-100 dark:border-slate-600">
+                            <div class="text-slate-500 text-sm mb-1 uppercase tracking-wider">Loyalty Points</div>
+                            <div class="text-3xl font-bold text-indigo-600">1,200</div>
+                        </div>
+                        <div
+                            class="p-6 rounded-xl bg-white dark:bg-slate-700 shadow-sm border border-gray-100 dark:border-slate-600">
+                            <div class="text-slate-500 text-sm mb-1 uppercase tracking-wider">Coupons</div>
+                            <div class="text-3xl font-bold text-orange-500">2 Active</div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="h-80 bg-white dark:bg-slate-700 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-slate-600">
+                        <h3 class="font-bold mb-6">Spending Analysis</h3>
+                        <canvas id="expenseChart" class="w-full h-full"></canvas>
+                    </div>
+                </div>
+
+                <!-- 2. Orders & Live Tracking -->
+                <div id="orders" class="tab-content hidden animate-fade-in-up">
+                    <h2 class="text-2xl font-bold mb-6 border-b pb-2 dark:border-slate-700">Order History & Tracking
+                    </h2>
+
+                    <!-- Live Tracking Map UI -->
+                    <div
+                        class="bg-slate-50 dark:bg-slate-900 border border-indigo-200 dark:border-indigo-900/50 rounded-xl p-6 mb-8 relative overflow-hidden">
+                        <div class="flex justify-between items-center mb-6 relative z-10">
+                            <h3 class="font-bold text-lg dark:text-white"><i
+                                    class="fas fa-truck-moving text-indigo-600 mr-2"></i> Live Tracking: Order #88392-AB
+                            </h3>
+                            <button
+                                class="bg-white text-indigo-600 px-3 py-1 rounded-full text-sm font-bold shadow-sm">Refresh
+                                Location</button>
+                        </div>
+
+                        <!-- Simulated Map Background -->
+                        <div class="h-48 bg-gray-200 rounded-xl relative overflow-hidden mb-6 group">
+                            <div
+                                class="absolute inset-0 opacity-20 bg-[url('https://upload.wikimedia.org/wikipedia/commons/e/ec/World_map_blank_without_borders.svg')] bg-cover bg-center">
+                            </div>
+                            <!-- Animated Line -->
+                            <div class="absolute top-1/2 left-10 right-10 h-1 bg-gray-300 rounded-full">
+                                <div class="h-full bg-indigo-600 w-2/3 relative">
+                                    <div
+                                        class="absolute right-0 top-1/2 transform -translate-y-1/2 w-4 h-4 bg-indigo-600 rounded-full shadow-lg ring-4 ring-white dark:ring-slate-800 animate-pulse">
+                                    </div>
+                                    <div
+                                        class="absolute right-0 -top-8 bg-black text-white text-xs px-2 py-1 rounded shadow transform translate-x-1/2">
+                                        In Transit</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 class="font-bold text-sm uppercase text-slate-500 mb-4">Past Orders</h3>
+                    <!-- List -->
+                    <div class="space-y-4">
+                        <div
+                            class="flex items-center justify-between p-4 bg-gray-50 dark:bg-slate-700/50 rounded-lg border border-gray-100 dark:border-slate-600">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-12 h-12 bg-white rounded-md flex items-center justify-center text-slate-300 border border-gray-200">
+                                    <i class="fas fa-box"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-sm dark:text-white">Dell UltraSharp Monitor</h4>
+                                    <p class="text-xs text-slate-500">Ord #88200 • Nov 20</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-bold text-sm dark:text-white">$800.00</div>
+                                <button class="text-xs text-indigo-600 hover:underline">Reorder</button> | <button
+                                    class="text-xs text-indigo-600 hover:underline">Return</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Returns (New) -->
+                <div id="returns" class="tab-content hidden animate-fade-in-up">
+                    <h2 class="text-2xl font-bold mb-6 border-b pb-2 dark:border-slate-700">Return & Refund Center</h2>
+
+                    <div
+                        class="bg-orange-50 dark:bg-orange-900/10 border border-orange-200 dark:border-orange-800 p-4 rounded-lg flex items-start gap-4 mb-8">
+                        <i class="fas fa-info-circle text-orange-500 mt-1"></i>
+                        <div>
+                            <h4 class="font-bold text-orange-800 dark:text-orange-200 text-sm">Return Policy</h4>
+                            <p class="text-orange-700 dark:text-orange-300 text-xs mt-1">Items can be returned within 30
+                                days of delivery. Must be in original packaging.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Start Return Form -->
+                        <div>
+                            <h3 class="font-bold mb-4">Start a New Return</h3>
+                            <form
+                                class="space-y-4 bg-white dark:bg-slate-700 p-6 rounded-xl border border-gray-100 dark:border-slate-600 shadow-sm">
+                                <div>
+                                    <label class="block text-sm font-bold mb-2">Select Order</label>
+                                    <select
+                                        class="w-full px-4 py-2 border rounded-lg dark:bg-slate-800 dark:border-slate-600">
+                                        <option>Order #88200 - Dell Monitor</option>
+                                        <option>Order #81205 - Ergonomic Chair</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold mb-2">Reason for Return</label>
+                                    <select
+                                        class="w-full px-4 py-2 border rounded-lg dark:bg-slate-800 dark:border-slate-600">
+                                        <option>Defective / Damaged</option>
+                                        <option>Wrong Item Sent</option>
+                                        <option>Changed Mind</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold mb-2">Comments</label>
+                                    <textarea
+                                        class="w-full px-4 py-2 border rounded-lg h-24 dark:bg-slate-800 dark:border-slate-600"></textarea>
+                                </div>
+                                <button
+                                    class="bg-indigo-600 text-white w-full py-3 rounded-lg font-bold hover:bg-indigo-700">Submit
+                                    Return Request</button>
+                            </form>
+                        </div>
+                        <!-- Return Status -->
+                        <div>
+                            <h3 class="font-bold mb-4">Active Returns</h3>
+                            <div
+                                class="text-center py-12 bg-gray-50 dark:bg-slate-700/50 rounded-xl border border-dashed border-gray-200 dark:border-slate-600">
+                                <i class="fas fa-box-open text-4xl text-slate-300 mb-4"></i>
+                                <p class="text-slate-500">No active return requests.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Wishlist (Existing ...) -->
+                <div id="wishlist" class="tab-content hidden animate-fade-in-up">
+                    <h2 class="text-2xl font-bold mb-6 border-b pb-2 dark:border-slate-700">My Wishlist</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Wishlist Item 1 -->
+                        <div
+                            class="bg-white dark:bg-slate-700 rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-slate-600 group">
+                            <div class="relative h-48">
+                                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=60"
+                                    class="w-full h-full object-cover">
+                                <button
+                                    class="absolute top-2 right-2 bg-white/90 p-2 rounded-full text-red-500 hover:bg-white shadow-sm transition"
+                                    title="Remove"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-bold dark:text-white mb-1">Nike Air Max 270</h3>
+                                <p class="text-indigo-600 font-bold mb-3">$150.00</p>
+                                <button
+                                    class="w-full bg-indigo-600 text-white py-2 rounded-lg font-bold hover:bg-indigo-700 transition">Add
+                                    to Cart</button>
+                            </div>
+                        </div>
+                        <!-- Wishlist Item 2 -->
+                        <div
+                            class="bg-white dark:bg-slate-700 rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-slate-600 group">
+                            <div class="relative h-48">
+                                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=60"
+                                    class="w-full h-full object-cover">
+                                <button
+                                    class="absolute top-2 right-2 bg-white/90 p-2 rounded-full text-red-500 hover:bg-white shadow-sm transition"
+                                    title="Remove"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-bold dark:text-white mb-1">Sony Noise Cancelling</h3>
+                                <p class="text-indigo-600 font-bold mb-3">$299.00</p>
+                                <button
+                                    class="w-full bg-indigo-600 text-white py-2 rounded-lg font-bold hover:bg-indigo-700 transition">Add
+                                    to Cart</button>
+                            </div>
+                        </div>
+                        <!-- Wishlist Item 3 -->
+                        <div
+                            class="bg-white dark:bg-slate-700 rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-slate-600 group">
+                            <div class="relative h-48">
+                                <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=500&q=60"
+                                    class="w-full h-full object-cover">
+                                <button
+                                    class="absolute top-2 right-2 bg-white/90 p-2 rounded-full text-red-500 hover:bg-white shadow-sm transition"
+                                    title="Remove"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-bold dark:text-white mb-1">Dev Ops Toolset Pro</h3>
+                                <p class="text-indigo-600 font-bold mb-3">$49.00/mo</p>
+                                <button
+                                    class="w-full bg-indigo-600 text-white py-2 rounded-lg font-bold hover:bg-indigo-700 transition">Subscribe</button>
+                            </div>
+                        </div>
+                        <!-- Add more mock items if needed -->
+                    </div>
+                </div>
+
+                <!-- 5. Payments (Existing ...) -->
+                <div id="payments" class="tab-content hidden animate-fade-in-up">
+                    <h2 class="text-2xl font-bold mb-6 border-b pb-2 dark:border-slate-700">Payment Methods</h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                        <div>
+                            <h3 class="font-bold mb-4 dark:text-white">Saved Cards</h3>
+                            <!-- Credit Card Visual -->
+                            <div
+                                class="bg-gradient-to-r from-gray-900 to-gray-800 text-white p-6 rounded-2xl shadow-xl relative overflow-hidden w-full max-w-sm mb-4 transform hover:scale-105 transition cursor-pointer">
+                                <div class="absolute right-6 top-6 text-2xl italic font-bold text-gray-400">VISA</div>
+                                <div class="mt-8 text-xl tracking-widest font-mono">**** **** **** 4242</div>
+                                <div class="flex justify-between mt-8">
+                                    <div>
+                                        <div class="text-xs text-gray-400 uppercase">Card Holder</div>
+                                        <div class="font-bold">JOHN DOE</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs text-gray-400 uppercase">Expires</div>
+                                        <div class="font-bold">12/28</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="flex items-center gap-2 text-indigo-600 font-bold hover:underline"><i
+                                    class="fas fa-plus-circle"></i> Add New Payment Method</button>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold mb-4 dark:text-white">Billing Address</h3>
+                            <div
+                                class="bg-gray-50 dark:bg-slate-700 p-6 rounded-xl border border-gray-100 dark:border-slate-600">
+                                <p class="font-bold dark:text-white">John Doe</p>
+                                <p class="text-slate-500 text-sm mt-1">1234 Technology Drive</p>
+                                <p class="text-slate-500 text-sm">Silicon Valley, CA 94025</p>
+                                <p class="text-slate-500 text-sm">United States</p>
+                                <button class="text-indigo-600 text-sm font-bold mt-3 hover:underline">Edit
+                                    Address</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 class="font-bold mb-4 dark:text-white mt-8">Transaction History</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="text-xs text-slate-500 border-b dark:border-slate-700">
+                                    <th class="py-3 px-2">Date</th>
+                                    <th class="py-3 px-2">Description</th>
+                                    <th class="py-3 px-2">Status</th>
+                                    <th class="py-3 px-2 text-right">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm dark:text-slate-300">
+                                <tr class="border-b dark:border-slate-700">
+                                    <td class="py-3 px-2">Dec 01, 2024</td>
+                                    <td class="py-3 px-2">Monthly Subscription</td>
+                                    <td class="py-3 px-2"><span
+                                            class="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded">Success</span>
+                                    </td>
+                                    <td class="py-3 px-2 text-right font-bold">$49.00</td>
+                                </tr>
+                                <tr class="border-b dark:border-slate-700">
+                                    <td class="py-3 px-2">Nov 20, 2024</td>
+                                    <td class="py-3 px-2">Order #88200</td>
+                                    <td class="py-3 px-2"><span
+                                            class="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded">Success</span>
+                                    </td>
+                                    <td class="py-3 px-2 text-right font-bold">$800.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 6. Profile (Existing ...) -->
+                <div id="profile" class="tab-content hidden animate-fade-in-up">
+                    <h2 class="text-2xl font-bold mb-6 border-b pb-2 dark:border-slate-700">Profile Settings</h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="font-bold mb-4 text-indigo-600">Personal Information</h3>
+                            <form class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-bold mb-1 dark:text-slate-300">Full Name</label>
+                                    <input type="text" value="John Doe"
+                                        class="w-full px-4 py-2 border rounded-lg dark:bg-slate-700 dark:border-slate-600 focus:ring-2 focus:ring-indigo-500 outline-none transition">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold mb-1 dark:text-slate-300">Email
+                                        Address</label>
+                                    <input type="email" value="john@example.com"
+                                        class="w-full px-4 py-2 border rounded-lg dark:bg-slate-700 dark:border-slate-600 focus:ring-2 focus:ring-indigo-500 outline-none transition">
+                                </div>
+                                <div class="pt-2">
+                                    <button type="button"
+                                        class="bg-indigo-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-indigo-700 transition">Save
+                                        Changes</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold mb-4 text-indigo-600">Security & Notifications</h3>
+                            <form class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-bold mb-1 dark:text-slate-300">Current
+                                        Password</label>
+                                    <input type="password" value="********"
+                                        class="w-full px-4 py-2 border rounded-lg dark:bg-slate-700 dark:border-slate-600 focus:ring-2 focus:ring-indigo-500 outline-none transition">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold mb-1 dark:text-slate-300">New Password</label>
+                                    <input type="password"
+                                        class="w-full px-4 py-2 border rounded-lg dark:bg-slate-700 dark:border-slate-600 focus:ring-2 focus:ring-indigo-500 outline-none transition">
+                                </div>
+
+                                <div class="pt-4 border-t dark:border-slate-700">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-sm dark:text-slate-300">Email Notifications</span>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" class="sr-only peer" checked>
+                                            <div
+                                                class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 dark:peer-focus:ring-indigo-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-600">
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-sm dark:text-slate-300">SMS Alerts</span>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" class="sr-only peer">
+                                            <div
+                                                class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 dark:peer-focus:ring-indigo-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-600">
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- MASTER FOOTER (Compact 1x3) -->
+    <footer class="bg-indigo-950 text-white pt-3 md:pt-4 pb-2 md:pb-3">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6 mb-2 md:mb-4">
+            <!-- Col 1: Brand -->
+            <div>
+                <div class="flex items-center gap-2 mb-2 md:mb-3">
+                    <div class="w-7 h-7 md:w-8 md:h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">
+                        B</div>
+                    <span class="text-lg md:text-xl font-bold">ByWith</span>
+                </div>
+                <p class="text-indigo-200 text-xs md:text-sm">Empowering your business journey.</p>
+            </div>
+            <!-- Col 2: Quick Links (Merged) -->
+            <div class="text-center md:text-start">
+                <h4 class="font-bold mb-2 md:mb-3 text-xs md:text-sm uppercase tracking-wider opacity-70">Quick Links</h4>
+                <div class="flex flex-wrap gap-3 md:gap-4 text-xs md:text-sm text-indigo-200 justify-center md:justify-start">
+                    <a href="product.html" class="hover:text-white transition">Products</a>
+                    <a href="about.html" class="hover:text-white transition">About</a>
+                    <a href="contact.html" class="hover:text-white transition">Contact</a>
+                    <a href="faq.html" class="hover:text-white transition">FAQ</a>
+                    <a href="user-dashboard.html" class="hover:text-white transition">My Account</a>
+                </div>
+            </div>
+            <!-- Col 3: Connect -->
+            <div class="flex flex-col md:items-end items-center">
+                <h4 class="font-bold mb-2 md:mb-3 text-xs md:text-sm uppercase tracking-wider opacity-70">Connect</h4>
+                <div class="flex gap-3 md:gap-4">
+                    <a href="#"
+                        class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-indigo-600 transition"><i
+                            class="fab fa-linkedin-in text-xs"></i></a>
+                    <a href="#"
+                        class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-indigo-600 transition"><i
+                            class="fab fa-twitter text-xs"></i></a>
+                    <a href="#"
+                        class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-indigo-600 transition"><i
+                            class="fab fa-instagram text-xs"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-indigo-900 pt-2 md:pt-4 text-center text-xs text-indigo-400">&copy; 2025 ByWith Inc. All
+            rights reserved.</div>
+    </footer>
+
+    <script src="./js/rtl-toggle.js"></script>
+    <script src="./js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('expenseChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{ label: 'Monthly Spend', data: [320, 250, 400, 450, 300, 600, 850], backgroundColor: '#6366f1', borderRadius: 4 }]
+                },
+                options: { maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+            });
+        });
+    </script>
+</body>
+
+</html>
