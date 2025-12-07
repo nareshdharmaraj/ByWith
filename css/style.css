@@ -335,3 +335,124 @@ h6 {
         transform: scale(1);
     }
 }
+
+/* Product Detail Modal Styles */
+#product-detail-modal {
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+#product-detail-modal > div > div {
+    animation: modalSlideUp 0.4s ease-out;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modalSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* RTL Support for Product Modal */
+[dir="rtl"] #product-detail-modal .absolute.end-4 {
+    right: auto;
+    left: 1rem;
+}
+
+[dir="rtl"] #product-detail-modal .absolute.start-4 {
+    left: auto;
+    right: 1rem;
+}
+
+/* Smooth scroll for review section */
+#modal-product-reviews {
+    scroll-behavior: smooth;
+}
+
+/* Review star hover effect */
+.review-star {
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.review-star:hover {
+    transform: scale(1.2);
+}
+
+/* Modal responsive improvements */
+@media (max-width: 768px) {
+    #product-detail-modal .grid.grid-cols-1.lg\\:grid-cols-2 {
+        grid-template-columns: 1fr;
+    }
+    
+    #product-detail-modal .space-y-6 {
+        max-height: none;
+    }
+}
+
+/* Theme-aware modal styling */
+.dark #product-detail-modal {
+    backdrop-filter: blur(8px);
+}
+
+.dark #product-detail-modal input,
+.dark #product-detail-modal textarea {
+    background-color: #1e293b;
+    border-color: #334155;
+    color: #f1f5f9;
+}
+
+.dark #product-detail-modal input:focus,
+.dark #product-detail-modal textarea:focus {
+    ring-color: #6366f1;
+    border-color: #6366f1;
+}
+
+/* Similar products grid responsive */
+#similar-products-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    #similar-products-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    #similar-products-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Mobile view improvements */
+@media (max-width: 640px) {
+    #product-detail-modal .p-6 {
+        padding: 1rem;
+    }
+    
+    #product-detail-modal .md\\:p-8 {
+        padding: 1.5rem;
+    }
+    
+    #product-detail-modal .text-4xl {
+        font-size: 1.875rem;
+    }
+    
+    #product-detail-modal .text-3xl {
+        font-size: 1.5rem;
+    }
+}

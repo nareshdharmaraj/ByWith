@@ -60,3 +60,187 @@ const partnersData = [
     { name: "SecureSys", logo: "fas fa-shield-alt" },
     { name: "CloudNine", logo: "fas fa-cloud" }
 ];
+
+// Product Detail Templates (5 templates mapped by category)
+const productDetailTemplates = {
+    Software: {
+        description: "Experience the power of cutting-edge software engineering. Our software solutions are built with scalability, security, and performance in mind. Utilizing the latest technologies and best practices, this product delivers exceptional results for businesses of all sizes. With seamless integration capabilities and intuitive user interfaces, you'll be up and running in no time.",
+        features: [
+            "Cloud-based architecture for maximum reliability",
+            "Real-time data synchronization across all devices",
+            "Advanced security with end-to-end encryption",
+            "24/7 customer support and regular updates",
+            "Customizable dashboard and reporting tools",
+            "API access for seamless third-party integrations"
+        ],
+        specifications: {
+            "Platform Compatibility": "Windows, macOS, Linux, Web",
+            "System Requirements": "4GB RAM minimum, 8GB recommended",
+            "License Type": "Subscription-based (Monthly/Yearly)",
+            "Language Support": "English, Spanish, French, German, Japanese",
+            "Storage": "Cloud-based with unlimited storage",
+            "Updates": "Automatic updates included"
+        },
+        reviews: [
+            { user: "Alex Thompson", rating: 5, date: "Nov 15, 2025", comment: "Absolutely fantastic software! The interface is intuitive and the performance is outstanding. Worth every penny." },
+            { user: "Maria Garcia", rating: 5, date: "Nov 10, 2025", comment: "This has transformed how our team works. The collaboration features are top-notch and support is always helpful." },
+            { user: "James Wilson", rating: 4, date: "Nov 5, 2025", comment: "Great product overall. A few minor bugs here and there, but the team is quick to fix them. Highly recommend!" },
+            { user: "Sophie Chen", rating: 5, date: "Oct 28, 2025", comment: "Best investment we've made this year. The automation features save us hours every week." }
+        ]
+    },
+    Hardware: {
+        description: "Premium hardware engineered for performance and durability. Each component is carefully selected and tested to ensure maximum reliability and longevity. Whether you're a professional or enthusiast, this hardware delivers the power you need with the quality you deserve. Built with premium materials and backed by comprehensive warranty coverage.",
+        features: [
+            "Premium build quality with aircraft-grade materials",
+            "Advanced cooling system for optimal performance",
+            "Plug-and-play installation with zero configuration",
+            "Energy-efficient design reduces power consumption",
+            "Extended warranty coverage (2-3 years)",
+            "Universal compatibility with major brands"
+        ],
+        specifications: {
+            "Dimensions": "Varies by product",
+            "Weight": "Lightweight and portable design",
+            "Material": "Premium aluminum and reinforced plastic",
+            "Connectivity": "USB-C, Bluetooth 5.2, Wi-Fi 6",
+            "Power": "Energy Star certified",
+            "Warranty": "2-year manufacturer warranty"
+        },
+        reviews: [
+            { user: "David Park", rating: 5, date: "Nov 20, 2025", comment: "Exceptional build quality! Feels premium and performs even better. Highly satisfied with this purchase." },
+            { user: "Emma Rodriguez", rating: 5, date: "Nov 12, 2025", comment: "This hardware exceeded my expectations. Setup was effortless and it works flawlessly." },
+            { user: "Michael Lee", rating: 4, date: "Nov 8, 2025", comment: "Great product with solid performance. The only downside is the price, but you get what you pay for." },
+            { user: "Rachel Kim", rating: 5, date: "Oct 30, 2025", comment: "Perfect for my needs. The quality is outstanding and customer service was very helpful." }
+        ]
+    },
+    Services: {
+        description: "Professional services tailored to your business needs. Our expert team brings years of industry experience to deliver solutions that drive real results. From consultation to implementation and ongoing support, we're with you every step of the way. Flexible service packages ensure you get exactly what you need without paying for what you don't.",
+        features: [
+            "Dedicated account manager for personalized support",
+            "Flexible service packages (Basic, Pro, Enterprise)",
+            "SLA-backed uptime guarantee (99.9%)",
+            "Expert consultation included in all plans",
+            "Monthly progress reports and analytics",
+            "Scalable solutions that grow with your business"
+        ],
+        specifications: {
+            "Service Type": "Managed cloud services",
+            "Response Time": "< 1 hour for critical issues",
+            "Availability": "24/7/365 monitoring",
+            "Team Size": "Dedicated team of 3-10 experts",
+            "Contract Length": "Monthly or annual billing",
+            "Cancellation": "30-day notice period"
+        },
+        reviews: [
+            { user: "Jennifer Adams", rating: 5, date: "Nov 18, 2025", comment: "Outstanding service! The team is professional, responsive, and always goes the extra mile." },
+            { user: "Robert Martinez", rating: 5, date: "Nov 14, 2025", comment: "We've been using this service for 6 months now. Couldn't be happier with the results and support." },
+            { user: "Lisa Patel", rating: 4, date: "Nov 7, 2025", comment: "Very good service overall. Communication could be better, but the quality of work is excellent." },
+            { user: "Kevin Brown", rating: 5, date: "Nov 1, 2025", comment: "Highly recommended! They understand our business needs and deliver consistently." }
+        ]
+    },
+    Fashion: {
+        description: "Style meets comfort in this carefully curated fashion piece. Crafted from premium materials with attention to every detail, this item combines contemporary design with timeless appeal. Whether you're dressing up for a special occasion or keeping it casual, this versatile piece fits seamlessly into any wardrobe. Sustainably sourced materials and ethical manufacturing practices make this a choice you can feel good about.",
+        features: [
+            "Premium quality fabric with superior comfort",
+            "Modern design that never goes out of style",
+            "Available in multiple sizes and colors",
+            "Easy care instructions for long-lasting wear",
+            "Sustainably sourced and ethically manufactured",
+            "Perfect for casual and formal occasions"
+        ],
+        specifications: {
+            "Material": "Premium cotton blend / Genuine leather",
+            "Sizes Available": "XS, S, M, L, XL, XXL",
+            "Care Instructions": "Machine washable / Hand clean recommended",
+            "Origin": "Ethically manufactured",
+            "Colors": "Multiple color options available",
+            "Fit": "Regular / Slim / Relaxed fit options"
+        },
+        reviews: [
+            { user: "Amanda Foster", rating: 5, date: "Nov 22, 2025", comment: "Love this! The quality is amazing and it fits perfectly. Will definitely buy more from this brand." },
+            { user: "Chris Taylor", rating: 5, date: "Nov 16, 2025", comment: "Excellent purchase! The material feels premium and the design is exactly what I was looking for." },
+            { user: "Nina Sharma", rating: 4, date: "Nov 11, 2025", comment: "Great product! Only wish there were more color options. Quality is top-notch though." },
+            { user: "Daniel White", rating: 5, date: "Nov 3, 2025", comment: "Perfect! Comfortable, stylish, and well-made. Highly recommend to anyone looking for quality fashion." }
+        ]
+    },
+    Accessories: {
+        description: "The perfect finishing touch to complete your style. This accessory combines functionality with fashion-forward design. Made with high-quality materials and expert craftsmanship, it's built to last while adding that special something to your daily routine. Whether you're treating yourself or looking for the perfect gift, this accessory delivers style and substance in equal measure.",
+        features: [
+            "Elegant design that complements any style",
+            "Durable construction for everyday use",
+            "Compact and portable for convenience",
+            "Gift-ready packaging included",
+            "Multiple finish options available",
+            "Makes an excellent gift for any occasion"
+        ],
+        specifications: {
+            "Material": "Stainless steel / Premium leather / High-grade plastic",
+            "Dimensions": "Compact and portable",
+            "Weight": "Lightweight design",
+            "Finish Options": "Matte, Glossy, Metallic",
+            "Packaging": "Premium gift box included",
+            "Maintenance": "Low maintenance, easy to clean"
+        },
+        reviews: [
+            { user: "Sarah Mitchell", rating: 5, date: "Nov 24, 2025", comment: "Beautiful accessory! The quality exceeded my expectations and it looks even better in person." },
+            { user: "Tom Anderson", rating: 4, date: "Nov 19, 2025", comment: "Really nice product. Great quality and the packaging made it perfect as a gift." },
+            { user: "Jessica Lu", rating: 5, date: "Nov 13, 2025", comment: "Absolutely love it! It's become my go-to accessory. Stylish and well-made." },
+            { user: "Brian Scott", rating: 5, date: "Nov 6, 2025", comment: "Excellent craftsmanship! Worth the price and I've received many compliments." }
+        ]
+    },
+    Furniture: {
+        description: "Transform your space with this expertly designed furniture piece. Combining form and function, it offers both aesthetic appeal and practical utility. Constructed from premium materials with reinforced joints and quality hardware, this furniture is built to withstand daily use while maintaining its beauty. Easy assembly and versatile design make it perfect for any room in your home or office.",
+        features: [
+            "Premium materials with reinforced construction",
+            "Ergonomic design for maximum comfort",
+            "Easy assembly with included tools and instructions",
+            "Versatile design fits any decor style",
+            "Heavy-duty construction supports daily use",
+            "5-year structural warranty included"
+        ],
+        specifications: {
+            "Material": "Solid wood / High-grade steel / Premium upholstery",
+            "Dimensions": "Detailed measurements in product images",
+            "Weight Capacity": "Up to 300 lbs",
+            "Assembly": "Required - approximately 30-60 minutes",
+            "Warranty": "5-year structural, 2-year fabric",
+            "Care": "Easy to clean and maintain"
+        },
+        reviews: [
+            { user: "Patricia Green", rating: 5, date: "Nov 21, 2025", comment: "Amazing quality! The furniture is sturdy, comfortable, and looks fantastic in my living room." },
+            { user: "Mark Johnson", rating: 4, date: "Nov 17, 2025", comment: "Very happy with this purchase. Assembly was straightforward and the quality is excellent." },
+            { user: "Linda Chen", rating: 5, date: "Nov 9, 2025", comment: "Best furniture purchase I've made! Comfortable, durable, and exactly as described." },
+            { user: "Steven Davis", rating: 5, date: "Nov 2, 2025", comment: "Outstanding! Worth every dollar. The build quality is exceptional and it's incredibly comfortable." }
+        ]
+    },
+    Wearables: {
+        description: "Stay connected and track your wellness with this advanced wearable technology. Packed with sensors and smart features, it seamlessly integrates into your lifestyle while keeping you informed and motivated. From fitness tracking to smart notifications, this device does it all while looking great on your wrist. Long battery life and water resistance make it perfect for active lifestyles.",
+        features: [
+            "Advanced health and fitness tracking sensors",
+            "Smart notifications for calls, messages, and apps",
+            "Extended battery life (5-7 days per charge)",
+            "Water-resistant design (IP68 rating)",
+            "Compatible with iOS and Android devices",
+            "Customizable watch faces and bands"
+        ],
+        specifications: {
+            "Display": "AMOLED touchscreen, always-on display",
+            "Battery Life": "5-7 days typical use",
+            "Sensors": "Heart rate, SpO2, GPS, accelerometer, gyroscope",
+            "Connectivity": "Bluetooth 5.0, Wi-Fi",
+            "Water Resistance": "5ATM (50 meters)",
+            "Compatibility": "iOS 13+ and Android 8.0+"
+        },
+        reviews: [
+            { user: "Carlos Rivera", rating: 5, date: "Nov 23, 2025", comment: "Perfect wearable! Tracks everything I need and the battery lasts for days. Very impressed." },
+            { user: "Emily Turner", rating: 5, date: "Nov 15, 2025", comment: "Love this device! It's helped me stay active and the features are incredible for the price." },
+            { user: "Ryan Cooper", rating: 4, date: "Nov 10, 2025", comment: "Great wearable with lots of features. Wish the app was a bit more intuitive, but overall very satisfied." },
+            { user: "Michelle Yang", rating: 5, date: "Nov 4, 2025", comment: "Best wearable I've owned! Accurate tracking, comfortable to wear, and looks stylish." }
+        ]
+    }
+};
+
+// Function to get product details by category with fallback
+function getProductDetails(category) {
+    return productDetailTemplates[category] || productDetailTemplates.Accessories;
+}

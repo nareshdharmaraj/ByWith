@@ -223,17 +223,20 @@ function renderProducts(data, container) {
         div.innerHTML = `
             <div class="relative h-64 bg-gray-100 overflow-hidden">
                 <img src="${p.image}" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                <button onclick="addToCart(${p.id})" class="absolute bottom-4 right-4 bg-white text-indigo-600 p-3 rounded-full shadow-lg hover:bg-indigo-600 hover:text-white transition transform hover:scale-110"><i class="fas fa-cart-plus"></i></button>
-                <div class="absolute top-4 left-4 bg-indigo-600 text-white text-xs font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition">${p.category}</div>
+                <button onclick="addToCart(${p.id})" class="absolute bottom-4 end-4 bg-white text-indigo-600 p-3 rounded-full shadow-lg hover:bg-indigo-600 hover:text-white transition transform hover:scale-110"><i class="fas fa-cart-plus"></i></button>
+                <div class="absolute top-4 start-4 bg-indigo-600 text-white text-xs font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition">${p.category}</div>
             </div>
             <div class="p-5">
                 <h3 class="font-bold text-lg dark:text-white mb-1 truncate" title="${p.name}">${p.name}</h3>
-                <div class="flex justify-between items-center mt-3">
+                <div class="flex justify-between items-center mt-3 mb-3">
                     <span class="font-bold text-xl text-indigo-600 dark:text-indigo-400">$${p.price}</span>
                     <div class="text-yellow-400 text-xs">
                         ${'<i class="fas fa-star"></i>'.repeat(Math.round(p.rating))}
                     </div>
                 </div>
+                <button onclick="openProductModal(${p.id})" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-2 rounded-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition transform hover:scale-105 flex items-center justify-center gap-2">
+                    <i class="fas fa-eye"></i> View Details
+                </button>
             </div>
         `;
         container.appendChild(div);
@@ -558,3 +561,239 @@ function checkShippingAvailability2() {
     resultDiv.classList.remove('hidden');
     resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
+
+// =====================================================
+// PRODUCT DETAIL MODAL FUNCTIONS
+// =====================================================
+
+let currentProductId = null;
+let userReviewRating = 0;
+
+function openProductModal(productId) {
+    currentProductId = productId;
+    const product = productsData.find(p => p.id === productId);
+    if (!product) return;
+
+    const details = getProductDetails(product.category);
+    const modal = document.getElementById('product-detail-modal');
+    
+    // Calculate discount (random 10-40% for display)
+    const discountPercent = Math.floor(Math.random() * 31) + 10; // 10-40%
+    const originalPrice = (product.price / (1 - discountPercent / 100)).toFixed(2);
+    
+    // Populate modal content
+    document.getElementById('modal-product-image').src = product.image;
+    document.getElementById('modal-product-category').textContent = product.category;
+    document.getElementById('modal-product-name').textContent = product.name;
+    document.getElementById('modal-product-rating').innerHTML = '<i class="fas fa-star"></i>'.repeat(Math.round(product.rating));
+    document.getElementById('modal-review-count').textContent = `(${details.reviews.length} reviews)`;
+    document.getElementById('modal-product-price').textContent = `$${product.price}`;
+    document.getElementById('modal-product-original-price').textContent = `$${originalPrice}`;
+    document.getElementById('modal-product-discount').textContent = `-${discountPercent}% OFF`;
+    document.getElementById('modal-product-description').textContent = details.description;
+    
+    // Populate features
+    const featuresContainer = document.getElementById('modal-product-features');
+    featuresContainer.innerHTML = details.features.map(feature => 
+        `<li class="flex items-start gap-3 text-slate-600 dark:text-slate-300">
+            <i class="fas fa-check text-green-500 mt-1"></i>
+            <span>${feature}</span>
+        </li>`
+    ).join('');
+    
+    // Populate specifications
+    const specsContainer = document.getElementById('modal-product-specs');
+    specsContainer.innerHTML = Object.entries(details.specifications).map(([key, value]) => 
+        `<div class="bg-slate-50 dark:bg-slate-900/50 p-3 rounded-lg">
+            <div class="text-sm text-slate-500 dark:text-slate-400 font-semibold mb-1">${key}</div>
+            <div class="text-slate-700 dark:text-slate-200 font-medium">${value}</div>
+        </div>`
+    ).join('');
+    
+    // Populate reviews
+    const reviewsContainer = document.getElementById('modal-product-reviews');
+    reviewsContainer.innerHTML = details.reviews.map(review => 
+        `<div class="bg-white dark:bg-slate-800 rounded-lg p-4 border border-slate-200 dark:border-slate-700">
+            <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-900 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-bold">
+                        ${review.user.charAt(0)}
+                    </div>
+                    <div>
+                        <div class="font-semibold dark:text-white">${review.user}</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">${review.date}</div>
+                    </div>
+                </div>
+                <div class="text-yellow-400 text-sm">
+                    ${'<i class="fas fa-star"></i>'.repeat(review.rating)}
+                </div>
+            </div>
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">${review.comment}</p>
+        </div>`
+    ).join('');
+    
+    // Load similar products
+    loadSimilarProducts(product);
+    
+    // Reset review form
+    resetReviewForm();
+    
+    // Show modal
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeProductModal() {
+    const modal = document.getElementById('product-detail-modal');
+    modal.classList.add('hidden');
+    document.body.style.overflow = '';
+    currentProductId = null;
+}
+
+function loadSimilarProducts(currentProduct) {
+    const similarProducts = productsData
+        .filter(p => p.id !== currentProduct.id && (p.category === currentProduct.category || Math.abs(p.price - currentProduct.price) < 100))
+        .slice(0, 8);
+    
+    const container = document.getElementById('similar-products-grid');
+    container.innerHTML = similarProducts.map(p => 
+        `<div class="bg-white dark:bg-slate-800 rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition border border-slate-200 dark:border-slate-700 group cursor-pointer" onclick="openProductModal(${p.id})">
+            <div class="relative h-32 bg-slate-100 dark:bg-slate-700 overflow-hidden">
+                <img src="${p.image}" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            </div>
+            <div class="p-3">
+                <h4 class="font-semibold text-sm dark:text-white mb-1 truncate" title="${p.name}">${p.name}</h4>
+                <div class="flex items-center justify-between">
+                    <span class="font-bold text-indigo-600 dark:text-indigo-400">$${p.price}</span>
+                    <div class="text-yellow-400 text-xs">
+                        ${'<i class="fas fa-star"></i>'.repeat(Math.round(p.rating))}
+                    </div>
+                </div>
+            </div>
+        </div>`
+    ).join('');
+}
+
+function setReviewRating(rating) {
+    userReviewRating = rating;
+    const stars = document.querySelectorAll('.review-star');
+    stars.forEach((star, index) => {
+        if (index < rating) {
+            star.classList.remove('text-slate-300');
+            star.classList.add('text-yellow-400');
+        } else {
+            star.classList.remove('text-yellow-400');
+            star.classList.add('text-slate-300');
+        }
+    });
+}
+
+function resetReviewForm() {
+    document.getElementById('review-name').value = '';
+    document.getElementById('review-comment').value = '';
+    userReviewRating = 0;
+    const stars = document.querySelectorAll('.review-star');
+    stars.forEach(star => {
+        star.classList.remove('text-yellow-400');
+        star.classList.add('text-slate-300');
+    });
+}
+
+function submitReview() {
+    const name = document.getElementById('review-name').value.trim();
+    const comment = document.getElementById('review-comment').value.trim();
+    
+    if (!name) {
+        showNotification('Please enter your name!', 'error');
+        return;
+    }
+    
+    if (userReviewRating === 0) {
+        showNotification('Please select a rating!', 'error');
+        return;
+    }
+    
+    if (!comment) {
+        showNotification('Please write a review!', 'error');
+        return;
+    }
+    
+    // Create new review
+    const today = new Date();
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const dateStr = `${months[today.getMonth()]} ${today.getDate()}, ${today.getFullYear()}`;
+    
+    const newReview = {
+        user: name,
+        rating: userReviewRating,
+        date: dateStr,
+        comment: comment
+    };
+    
+    // Add to the beginning of reviews
+    const reviewsContainer = document.getElementById('modal-product-reviews');
+    const reviewHTML = `
+        <div class="bg-white dark:bg-slate-800 rounded-lg p-4 border border-slate-200 dark:border-slate-700 animate-fade-in-up">
+            <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-900 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-bold">
+                        ${newReview.user.charAt(0)}
+                    </div>
+                    <div>
+                        <div class="font-semibold dark:text-white">${newReview.user}</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">${newReview.date}</div>
+                    </div>
+                </div>
+                <div class="text-yellow-400 text-sm">
+                    ${'<i class="fas fa-star"></i>'.repeat(newReview.rating)}
+                </div>
+            </div>
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">${newReview.comment}</p>
+        </div>
+    `;
+    
+    reviewsContainer.insertAdjacentHTML('afterbegin', reviewHTML);
+    
+    // Update review count
+    const currentCount = parseInt(document.getElementById('modal-review-count').textContent.match(/\d+/)[0]);
+    document.getElementById('modal-review-count').textContent = `(${currentCount + 1} reviews)`;
+    
+    // Show success message
+    showNotification('Thank you for your review!', 'success');
+    
+    // Reset form
+    resetReviewForm();
+    
+    // Scroll to new review
+    reviewsContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function addToCartFromModal() {
+    if (currentProductId) {
+        addToCart(currentProductId);
+    }
+}
+
+function buyNowFromModal() {
+    if (currentProductId) {
+        addToCart(currentProductId);
+        setTimeout(() => {
+            window.location.href = 'checkout.html';
+        }, 500);
+    }
+}
+
+// Close modal on outside click
+document.addEventListener('click', (e) => {
+    const modal = document.getElementById('product-detail-modal');
+    if (modal && e.target === modal) {
+        closeProductModal();
+    }
+});
+
+// Close modal on Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeProductModal();
+    }
+});
