@@ -350,3 +350,211 @@ function calculateROI() {
         if (total > 0) display.classList.replace('text-white', 'text-green-400');
     }
 }
+
+// Shipping Availability Checker Data
+const shippingData = {
+    USA: {
+        states: {
+            California: ['Los Angeles', 'San Francisco', 'San Diego', 'Sacramento', 'San Jose', 'Fresno', 'Long Beach', 'Oakland'],
+            Texas: ['Houston', 'Dallas', 'Austin', 'San Antonio', 'Fort Worth', 'El Paso', 'Arlington', 'Corpus Christi'],
+            'New York': ['New York City', 'Buffalo', 'Rochester', 'Albany', 'Syracuse', 'Yonkers', 'New Rochelle'],
+            Florida: ['Miami', 'Orlando', 'Tampa', 'Jacksonville', 'Fort Lauderdale', 'Tallahassee', 'St. Petersburg'],
+            Illinois: ['Chicago', 'Aurora', 'Naperville', 'Joliet', 'Rockford', 'Springfield', 'Peoria'],
+            Pennsylvania: ['Philadelphia', 'Pittsburgh', 'Allentown', 'Erie', 'Reading', 'Scranton'],
+            Ohio: ['Columbus', 'Cleveland', 'Cincinnati', 'Toledo', 'Akron', 'Dayton'],
+            Georgia: ['Atlanta', 'Augusta', 'Columbus', 'Macon', 'Savannah', 'Athens']
+        },
+        delivery: '2-4 business days',
+        cost: 'Free on orders $50+'
+    },
+    India: {
+        states: {
+            Maharashtra: ['Mumbai', 'Pune', 'Nagpur', 'Nashik', 'Thane', 'Aurangabad', 'Solapur', 'Kolhapur'],
+            Karnataka: ['Bangalore', 'Mysore', 'Mangalore', 'Hubli', 'Belgaum', 'Gulbarga', 'Dharwad'],
+            'Tamil Nadu': ['Chennai', 'Coimbatore', 'Madurai', 'Salem', 'Tiruchirappalli', 'Tirunelveli', 'Erode'],
+            Delhi: ['New Delhi', 'Central Delhi', 'South Delhi', 'North Delhi', 'East Delhi', 'West Delhi'],
+            'Uttar Pradesh': ['Lucknow', 'Kanpur', 'Agra', 'Varanasi', 'Meerut', 'Allahabad', 'Ghaziabad'],
+            'West Bengal': ['Kolkata', 'Howrah', 'Durgapur', 'Siliguri', 'Asansol', 'Bardhaman'],
+            Rajasthan: ['Jaipur', 'Jodhpur', 'Udaipur', 'Kota', 'Ajmer', 'Bikaner'],
+            Gujarat: ['Ahmedabad', 'Surat', 'Vadodara', 'Rajkot', 'Gandhinagar', 'Bhavnagar']
+        },
+        delivery: '3-5 business days',
+        cost: 'Free on orders $30+'
+    },
+    UK: {
+        states: {
+            England: ['London', 'Manchester', 'Birmingham', 'Liverpool', 'Leeds', 'Sheffield', 'Bristol', 'Newcastle'],
+            Scotland: ['Edinburgh', 'Glasgow', 'Aberdeen', 'Dundee', 'Inverness', 'Stirling', 'Perth'],
+            Wales: ['Cardiff', 'Swansea', 'Newport', 'Wrexham', 'Barry', 'Rhondda', 'Caerphilly'],
+            'Northern Ireland': ['Belfast', 'Derry', 'Lisburn', 'Newry', 'Armagh', 'Bangor', 'Craigavon']
+        },
+        delivery: '1-3 business days',
+        cost: 'Free on orders £40+'
+    },
+    Canada: {
+        states: {
+            Ontario: ['Toronto', 'Ottawa', 'Mississauga', 'Hamilton', 'Brampton', 'London', 'Markham', 'Windsor'],
+            Quebec: ['Montreal', 'Quebec City', 'Laval', 'Gatineau', 'Longueuil', 'Sherbrooke', 'Trois-Rivières'],
+            'British Columbia': ['Vancouver', 'Victoria', 'Surrey', 'Burnaby', 'Richmond', 'Abbotsford', 'Coquitlam'],
+            Alberta: ['Calgary', 'Edmonton', 'Red Deer', 'Lethbridge', 'Medicine Hat', 'Grande Prairie'],
+            Manitoba: ['Winnipeg', 'Brandon', 'Steinbach', 'Thompson', 'Portage la Prairie'],
+            Saskatchewan: ['Saskatoon', 'Regina', 'Prince Albert', 'Moose Jaw', 'Swift Current']
+        },
+        delivery: '3-6 business days',
+        cost: 'Free on orders $60+'
+    },
+    Australia: {
+        states: {
+            'New South Wales': ['Sydney', 'Newcastle', 'Wollongong', 'Wagga Wagga', 'Gosford', 'Maitland', 'Tamworth'],
+            Victoria: ['Melbourne', 'Geelong', 'Ballarat', 'Bendigo', 'Shepparton', 'Wodonga', 'Warrnambool'],
+            Queensland: ['Brisbane', 'Gold Coast', 'Cairns', 'Townsville', 'Toowoomba', 'Mackay', 'Rockhampton'],
+            'Western Australia': ['Perth', 'Fremantle', 'Bunbury', 'Albany', 'Geraldton', 'Mandurah', 'Kalgoorlie'],
+            'South Australia': ['Adelaide', 'Mount Gambier', 'Whyalla', 'Murray Bridge', 'Port Lincoln'],
+            Tasmania: ['Hobart', 'Launceston', 'Devonport', 'Burnie', 'Kingston']
+        },
+        delivery: '4-7 business days',
+        cost: 'Free on orders $70+'
+    },
+    Germany: {
+        states: {
+            Bavaria: ['Munich', 'Nuremberg', 'Augsburg', 'Regensburg', 'Ingolstadt', 'Würzburg'],
+            'North Rhine-Westphalia': ['Cologne', 'Dortmund', 'Essen', 'Düsseldorf', 'Duisburg', 'Bochum'],
+            'Baden-Württemberg': ['Stuttgart', 'Mannheim', 'Karlsruhe', 'Freiburg', 'Heidelberg', 'Ulm'],
+            Berlin: ['Mitte', 'Charlottenburg', 'Kreuzberg', 'Prenzlauer Berg', 'Neukölln']
+        },
+        delivery: '2-4 business days',
+        cost: 'Free on orders €45+'
+    },
+    France: {
+        states: {
+            'Île-de-France': ['Paris', 'Versailles', 'Boulogne-Billancourt', 'Montreuil', 'Argenteuil'],
+            'Provence-Alpes-Côte d\'Azur': ['Marseille', 'Nice', 'Toulon', 'Aix-en-Provence', 'Cannes'],
+            'Auvergne-Rhône-Alpes': ['Lyon', 'Grenoble', 'Saint-Étienne', 'Chambéry', 'Annecy'],
+            'Nouvelle-Aquitaine': ['Bordeaux', 'Limoges', 'Poitiers', 'La Rochelle', 'Pau']
+        },
+        delivery: '2-4 business days',
+        cost: 'Free on orders €45+'
+    },
+    Japan: {
+        states: {
+            Tokyo: ['Shibuya', 'Shinjuku', 'Minato', 'Chiyoda', 'Setagaya', 'Toshima'],
+            Osaka: ['Osaka City', 'Sakai', 'Higashiosaka', 'Toyonaka', 'Suita'],
+            Kyoto: ['Kyoto City', 'Uji', 'Kameoka', 'Nagaokakyo', 'Kyotanabe'],
+            Kanagawa: ['Yokohama', 'Kawasaki', 'Sagamihara', 'Fujisawa', 'Yokosuka']
+        },
+        delivery: '2-3 business days',
+        cost: 'Free on orders ¥5000+'
+    }
+};
+
+// For index.html (first shipping checker)
+function updateStates() {
+    const country = document.getElementById('shipping-country').value;
+    const stateSelect = document.getElementById('shipping-state');
+    const districtSelect = document.getElementById('shipping-district');
+    
+    stateSelect.innerHTML = '<option value="">Select State</option>';
+    districtSelect.innerHTML = '<option value="">Select District</option>';
+    
+    if (country && shippingData[country]) {
+        Object.keys(shippingData[country].states).forEach(state => {
+            const option = document.createElement('option');
+            option.value = state;
+            option.textContent = state;
+            stateSelect.appendChild(option);
+        });
+    }
+}
+
+function updateDistricts() {
+    const country = document.getElementById('shipping-country').value;
+    const state = document.getElementById('shipping-state').value;
+    const districtSelect = document.getElementById('shipping-district');
+    
+    districtSelect.innerHTML = '<option value="">Select District</option>';
+    
+    if (country && state && shippingData[country] && shippingData[country].states[state]) {
+        shippingData[country].states[state].forEach(district => {
+            const option = document.createElement('option');
+            option.value = district;
+            option.textContent = district;
+            districtSelect.appendChild(option);
+        });
+    }
+}
+
+function checkShippingAvailability() {
+    const country = document.getElementById('shipping-country').value;
+    const state = document.getElementById('shipping-state').value;
+    const district = document.getElementById('shipping-district').value;
+    const resultDiv = document.getElementById('shipping-result');
+    
+    if (!country || !state || !district) {
+        showNotification('Please select all fields!');
+        return;
+    }
+    
+    const deliveryInfo = shippingData[country];
+    document.getElementById('delivery-message').textContent = `We deliver to ${district}, ${state}, ${country}!`;
+    document.getElementById('delivery-days').textContent = deliveryInfo.delivery;
+    document.getElementById('shipping-cost').textContent = deliveryInfo.cost;
+    
+    resultDiv.classList.remove('hidden');
+    resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// For index2.html (second shipping checker)
+function updateStates2() {
+    const country = document.getElementById('shipping-country-2').value;
+    const stateSelect = document.getElementById('shipping-state-2');
+    const districtSelect = document.getElementById('shipping-district-2');
+    
+    stateSelect.innerHTML = '<option value="">Select State</option>';
+    districtSelect.innerHTML = '<option value="">Select District</option>';
+    
+    if (country && shippingData[country]) {
+        Object.keys(shippingData[country].states).forEach(state => {
+            const option = document.createElement('option');
+            option.value = state;
+            option.textContent = state;
+            stateSelect.appendChild(option);
+        });
+    }
+}
+
+function updateDistricts2() {
+    const country = document.getElementById('shipping-country-2').value;
+    const state = document.getElementById('shipping-state-2').value;
+    const districtSelect = document.getElementById('shipping-district-2');
+    
+    districtSelect.innerHTML = '<option value="">Select District</option>';
+    
+    if (country && state && shippingData[country] && shippingData[country].states[state]) {
+        shippingData[country].states[state].forEach(district => {
+            const option = document.createElement('option');
+            option.value = district;
+            option.textContent = district;
+            districtSelect.appendChild(option);
+        });
+    }
+}
+
+function checkShippingAvailability2() {
+    const country = document.getElementById('shipping-country-2').value;
+    const state = document.getElementById('shipping-state-2').value;
+    const district = document.getElementById('shipping-district-2').value;
+    const resultDiv = document.getElementById('shipping-result-2');
+    
+    if (!country || !state || !district) {
+        showNotification('Please select all fields!');
+        return;
+    }
+    
+    const deliveryInfo = shippingData[country];
+    document.getElementById('delivery-message-2').textContent = `We deliver to ${district}, ${state}, ${country}!`;
+    document.getElementById('delivery-days-2').textContent = deliveryInfo.delivery;
+    document.getElementById('shipping-cost-2').textContent = deliveryInfo.cost;
+    
+    resultDiv.classList.remove('hidden');
+    resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
