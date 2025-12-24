@@ -80,6 +80,8 @@
                         class="px-4 py-1.5 border border-indigo-200 text-indigo-600 rounded-lg hover:bg-indigo-50 dark:border-indigo-800 dark:text-indigo-400 dark:hover:bg-slate-800 transition">FAQ</a>
                 </div>
                 <div class="flex items-center gap-4">
+                    <a href="login.html"
+                        class="hidden md:inline-flex items-center justify-center px-4 py-2 text-sm font-bold text-white transition-all duration-200 bg-indigo-600 rounded-lg hover:bg-indigo-700 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900">Login</a>
                     <button onclick="toggleRTL()"
                         class="rtl-toggle-btn p-2 text-slate-500 hover:text-indigo-600 transition dark:text-slate-400"><i
                             class="fas fa-globe"></i></button>
@@ -135,6 +137,8 @@
                     class="text-slate-600 dark:text-slate-300 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded">Contact</a>
                 <a href="faq.html"
                     class="px-4 py-2 border-2 border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400 rounded-lg font-semibold hover:bg-indigo-50 dark:hover:bg-slate-800">FAQ</a>
+                <a href="login.html"
+                    class="px-4 py-2 bg-indigo-600 text-white rounded-lg font-bold hover:bg-indigo-700 hover:shadow-lg transition">Login</a>
             </div>
         </div>
     </nav>
@@ -192,6 +196,9 @@
                 <button
                     class="flex items-center gap-3 px-4 py-3 rounded-lg text-left text-sm font-medium text-slate-500 hover:bg-white hover:text-indigo-600 dark:hover:bg-slate-800 transition"
                     data-tab-target="#profile"><i class="fas fa-user-cog w-5"></i> Profile</button>
+                <button
+                    class="flex items-center gap-3 px-4 py-3 rounded-lg text-left text-sm font-medium text-slate-500 hover:bg-white hover:text-indigo-600 dark:hover:bg-slate-800 transition"
+                    data-tab-target="#analytics"><i class="fas fa-chart-line w-5"></i> Analytics</button>
             </div>
 
             <!-- Content Area -->
@@ -203,7 +210,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
                         <div
                             class="p-6 rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-600 text-white shadow-lg">
-                            <div class="text-indigo-200 text-sm mb-1 uppercase tracking-wider">Total Spent</div>
+                            <div class="text-slate-600 dark:text-indigo-200 text-sm mb-1 uppercase tracking-wider">Total Spent</div>
                             <div class="text-3xl font-bold">$4,250.00</div>
                         </div>
                         <div
@@ -223,10 +230,17 @@
                         </div>
                     </div>
 
-                    <div
-                        class="h-80 bg-white dark:bg-slate-700 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-slate-600">
-                        <h3 class="font-bold mb-6">Spending Analysis</h3>
-                        <canvas id="expenseChart" class="w-full h-full"></canvas>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div
+                            class="h-80 bg-white dark:bg-slate-700 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-slate-600">
+                            <h3 class="font-bold mb-6 dark:text-white">Spending Trend</h3>
+                            <canvas id="expenseChart" class="w-full h-full"></canvas>
+                        </div>
+                        <div
+                            class="h-80 bg-white dark:bg-slate-700 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-slate-600">
+                            <h3 class="font-bold mb-6 dark:text-white">Category Breakdown</h3>
+                            <canvas id="categoryPieChart" class="w-full h-full"></canvas>
+                        </div>
                     </div>
                 </div>
 
@@ -239,27 +253,29 @@
                     <div
                         class="bg-slate-50 dark:bg-slate-900 border border-indigo-200 dark:border-indigo-900/50 rounded-xl p-6 mb-8 relative overflow-hidden">
                         <div class="flex justify-between items-center mb-6 relative z-10">
-                            <h3 class="font-bold text-lg dark:text-white"><i
+                            <h3 class="font-bold text-lg text-slate-800 dark:text-white"><i
                                     class="fas fa-truck-moving text-indigo-600 mr-2"></i> Live Tracking: Order #88392-AB
                             </h3>
                             <button
-                                class="bg-white text-indigo-600 px-3 py-1 rounded-full text-sm font-bold shadow-sm">Refresh
+                                class="bg-white text-indigo-600 px-3 py-1 rounded-full text-sm font-bold shadow-sm hover:bg-indigo-50 transition">Refresh
                                 Location</button>
                         </div>
 
                         <!-- Simulated Map Background -->
-                        <div class="h-48 bg-gray-200 rounded-xl relative overflow-hidden mb-6 group">
+                        <div
+                            class="h-48 bg-slate-200 dark:bg-slate-800 rounded-xl relative overflow-hidden mb-6 group border border-slate-300 dark:border-slate-700">
                             <div
-                                class="absolute inset-0 opacity-20 bg-[url('https://upload.wikimedia.org/wikipedia/commons/e/ec/World_map_blank_without_borders.svg')] bg-cover bg-center">
+                                class="absolute inset-0 opacity-20 bg-[url('https://upload.wikimedia.org/wikipedia/commons/e/ec/World_map_blank_without_borders.svg')] bg-cover bg-center filter grayscale">
                             </div>
                             <!-- Animated Line -->
-                            <div class="absolute top-1/2 left-10 right-10 h-1 bg-gray-300 rounded-full">
-                                <div class="h-full bg-indigo-600 w-2/3 relative">
+                            <div
+                                class="absolute top-1/2 left-10 right-10 h-1 bg-gray-300 dark:bg-slate-600 rounded-full">
+                                <div class="h-full bg-indigo-600 w-2/3 relative shadow-[0_0_10px_rgba(79,70,229,0.5)]">
                                     <div
                                         class="absolute right-0 top-1/2 transform -translate-y-1/2 w-4 h-4 bg-indigo-600 rounded-full shadow-lg ring-4 ring-white dark:ring-slate-800 animate-pulse">
                                     </div>
                                     <div
-                                        class="absolute right-0 -top-8 bg-black text-white text-xs px-2 py-1 rounded shadow transform translate-x-1/2">
+                                        class="absolute right-0 -top-10 bg-indigo-900 text-white text-xs px-3 py-1.5 rounded shadow-lg transform translate-x-1/2 font-bold whitespace-nowrap z-20 arrow-bottom">
                                         In Transit</div>
                                 </div>
                             </div>
@@ -550,68 +566,169 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </main>
 
-    <!-- MASTER FOOTER (Compact 1x3) -->
-    <footer class="bg-indigo-950 text-white pt-3 md:pt-4 pb-2 md:pb-3">
-        <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 mb-2 md:mb-4">
-            <!-- Col 1: Brand -->
-            <div>
-                <div class="flex items-center gap-2 mb-2 md:mb-3">
-                    <div class="w-7 h-7 md:w-8 md:h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">
-                        B</div>
-                    <span class="text-lg md:text-xl font-bold">ByWith</span>
-                </div>
-                <p class="text-indigo-200 text-xs md:text-sm">Empowering your business journey.</p>
-            </div>
-            <!-- Col 2: Quick Links (Merged) -->
-            <div class="text-center md:text-start">
-                <h4 class="font-bold mb-2 md:mb-3 text-xs md:text-sm uppercase tracking-wider opacity-70">Quick Links</h4>
-                <div class="flex flex-wrap gap-3 md:gap-4 text-xs md:text-sm text-indigo-200 justify-center md:justify-start">
-                    <a href="product.html" class="hover:text-white transition">Products</a>
-                    <a href="about.html" class="hover:text-white transition">About</a>
-                    <a href="contact.html" class="hover:text-white transition">Contact</a>
-                    <a href="faq.html" class="hover:text-white transition">FAQ</a>
-                    <a href="user-dashboard.html" class="hover:text-white transition">My Account</a>
-                </div>
-            </div>
-            <!-- Col 3: Connect -->
-            <div class="flex flex-col md:items-end items-center">
-                <h4 class="font-bold mb-2 md:mb-3 text-xs md:text-sm uppercase tracking-wider opacity-70">Connect</h4>
-                <div class="flex gap-3 md:gap-4">
-                    <a href="#"
-                        class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-indigo-600 transition"><i
-                            class="fab fa-linkedin-in text-xs"></i></a>
-                    <a href="#"
-                        class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-indigo-600 transition"><i
-                            class="fab fa-twitter text-xs"></i></a>
-                    <a href="#"
-                        class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-indigo-600 transition"><i
-                            class="fab fa-instagram text-xs"></i></a>
+                <!-- 7. Analytics (New) -->
+                <div id="analytics" class="tab-content hidden animate-fade-in-up">
+                    <h2 class="text-2xl font-bold mb-6 border-b pb-2 dark:border-slate-700">Detailed Analytics</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                        <div
+                            class="bg-white dark:bg-slate-700 p-6 rounded-xl border border-gray-100 dark:border-slate-600">
+                            <h3 class="font-bold mb-4 dark:text-white">Monthly Savings</h3>
+                            <div class="h-64"><canvas id="savingsBarChart"></canvas></div>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-slate-700 p-6 rounded-xl border border-gray-100 dark:border-slate-600">
+                            <h3 class="font-bold mb-4 dark:text-white">Order Frequency</h3>
+                            <div class="h-64"><canvas id="orderFreqChart"></canvas></div>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-slate-700 p-6 rounded-xl border border-gray-100 dark:border-slate-600">
+                            <h3 class="font-bold mb-4 dark:text-white">Budget vs Actual</h3>
+                            <div class="h-64"><canvas id="budgetChart"></canvas></div>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-slate-700 p-6 rounded-xl border border-gray-100 dark:border-slate-600">
+                            <h3 class="font-bold mb-4 dark:text-white">Loyalty Points Growth</h3>
+                            <div class="h-64"><canvas id="pointsLineChart"></canvas></div>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-slate-700 p-6 rounded-xl border border-gray-100 dark:border-slate-600 md:col-span-2">
+                            <h3 class="font-bold mb-4 dark:text-white">Shopping Habits Radar</h3>
+                            <div class="h-80 flex justify-center"><canvas id="habitRadarChart"></canvas></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="border-t border-indigo-900 pt-2 md:pt-4 text-center text-xs text-indigo-400">&copy; 2025 ByWith Inc. All
-            rights reserved.</div>
-    </footer>
 
-    <script src="./js/rtl-toggle.js"></script>
-    <script src="./js/main.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const ctx = document.getElementById('expenseChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                    datasets: [{ label: 'Monthly Spend', data: [320, 250, 400, 450, 300, 600, 850], backgroundColor: '#6366f1', borderRadius: 4 }]
-                },
-                options: { maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+        <!-- MASTER FOOTER (Compact 1x3) -->
+        <footer class="bg-white dark:bg-indigo-950 text-slate-800 dark:text-white pt-3 md:pt-4 pb-2 md:pb-3">
+            <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 mb-2 md:mb-4">
+                <!-- Col 1: Brand -->
+                <div>
+                    <div class="flex items-center gap-2 mb-2 md:mb-3">
+                        <div
+                            class="w-7 h-7 md:w-8 md:h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">
+                            B</div>
+                        <span class="text-lg md:text-xl font-bold">ByWith</span>
+                    </div>
+                    <p class="text-slate-600 dark:text-indigo-200 text-xs md:text-sm">Empowering your business journey.</p>
+                </div>
+                <!-- Col 2: Quick Links (Merged) -->
+                <div class="text-center md:text-start">
+                    <h4 class="font-bold mb-2 md:mb-3 text-xs md:text-sm uppercase tracking-wider opacity-70">Quick
+                        Links
+                    </h4>
+                    <div
+                        class="flex flex-wrap gap-3 md:gap-4 text-xs md:text-sm text-slate-600 dark:text-indigo-200 justify-center md:justify-start">
+                        <a href="product.html" class="hover:text-white transition">Products</a>
+                        <a href="about.html" class="hover:text-white transition">About</a>
+                        <a href="contact.html" class="hover:text-white transition">Contact</a>
+                        <a href="faq.html" class="hover:text-white transition">FAQ</a>
+                        <a href="user-dashboard.html" class="hover:text-white transition">My Account</a>
+                    </div>
+                </div>
+                <!-- Col 3: Connect -->
+                <div class="flex flex-col md:items-end items-center">
+                    <h4 class="font-bold mb-2 md:mb-3 text-xs md:text-sm uppercase tracking-wider opacity-70">Connect
+                    </h4>
+                    <div class="flex gap-3 md:gap-4">
+                        <a href="#"
+                            class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-indigo-600 transition"><i
+                                class="fab fa-linkedin-in text-xs"></i></a>
+                        <a href="#"
+                            class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-indigo-600 transition"><i
+                                class="fab fa-twitter text-xs"></i></a>
+                        <a href="#"
+                            class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-indigo-600 transition"><i
+                                class="fab fa-instagram text-xs"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-indigo-900 pt-2 md:pt-4 text-center text-xs text-indigo-400">&copy; 2025 ByWith
+                Inc.
+                All
+                rights reserved.</div>
+        </footer>
+
+        <script src="./js/rtl-toggle.js"></script>
+        <script src="./js/main.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const ctx = document.getElementById('expenseChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                        datasets: [{ label: 'Monthly Spend ($)', data: [320, 250, 400, 450, 300, 600, 850], borderColor: '#6366f1', backgroundColor: 'rgba(99, 102, 241, 0.2)', fill: true, tension: 0.4 }]
+                    },
+                    options: { maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+                });
+
+                // 2. Category Breakdown (Pie)
+                new Chart(document.getElementById('categoryPieChart').getContext('2d'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Electronics', 'Home Office', 'Accessories', 'Services'],
+                        datasets: [{ data: [45, 25, 20, 10], backgroundColor: ['#6366f1', '#10b981', '#f59e0b', '#ec4899'] }]
+                    },
+                    options: { maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
+                });
+
+                // 3. Savings (Bar)
+                new Chart(document.getElementById('savingsBarChart').getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                        datasets: [{ label: 'Savings ($)', data: [50, 75, 40, 100, 150], backgroundColor: '#10b981', borderRadius: 4 }]
+                    },
+                    options: { maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
+                });
+
+                // 4. Order Frequency (Line)
+                new Chart(document.getElementById('orderFreqChart').getContext('2d'), {
+                    type: 'line',
+                    data: {
+                        labels: ['W1', 'W2', 'W3', 'W4'],
+                        datasets: [{ label: 'Orders placed', data: [1, 3, 2, 5], borderColor: '#f59e0b', tension: 0.3 }]
+                    },
+                    options: { maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
+                });
+
+                // 5. Budget vs Actual (Bar Stacked or Grouped)
+                new Chart(document.getElementById('budgetChart').getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['Electronics', 'Furniture', 'Subs'],
+                        datasets: [
+                            { label: 'Budget', data: [1000, 500, 100], backgroundColor: '#cbd5e1' },
+                            { label: 'Actual', data: [850, 600, 50], backgroundColor: '#6366f1' }
+                        ]
+                    },
+                    options: { maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
+                });
+
+                // 6. Points Growth
+                new Chart(document.getElementById('pointsLineChart').getContext('2d'), {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Mar', 'Jun', 'Sep', 'Dec'],
+                        datasets: [{ label: 'Total Points', data: [0, 250, 500, 850, 1200], borderColor: '#8b5cf6', fill: true, backgroundColor: 'rgba(139, 92, 246, 0.1)' }]
+                    },
+                    options: { maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
+                });
+
+                // 7. Habits Radar
+                new Chart(document.getElementById('habitRadarChart').getContext('2d'), {
+                    type: 'radar',
+                    data: {
+                        labels: ['Impulse', 'Planned', 'Night', 'Weekend', 'Sales'],
+                        datasets: [{ label: 'Shopper Profile', data: [40, 80, 20, 90, 60], borderColor: '#ec4899', backgroundColor: 'rgba(236, 72, 153, 0.2)' }]
+                    },
+                    options: { maintainAspectRatio: false, elements: { line: { borderWidth: 3 } } }
+                });
             });
-        });
-    </script>
+        </script>
 </body>
 
 </html>

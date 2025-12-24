@@ -69,6 +69,8 @@
                         class="px-4 py-1.5 border border-indigo-200 text-indigo-600 rounded-lg hover:bg-indigo-50 dark:border-indigo-800 dark:text-indigo-400 dark:hover:bg-slate-800 transition">FAQ</a>
                 </div>
                 <div class="flex items-center gap-4">
+                    <a href="login.html"
+                        class="hidden md:inline-flex items-center justify-center px-4 py-2 text-sm font-bold text-white transition-all duration-200 bg-indigo-600 rounded-lg hover:bg-indigo-700 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900">Login</a>
                     <button onclick="toggleRTL()"
                         class="rtl-toggle-btn p-2 text-slate-500 hover:text-indigo-600 transition dark:text-slate-400"><i
                             class="fas fa-globe"></i></button>
@@ -124,6 +126,8 @@
                     class="text-slate-600 dark:text-slate-300 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded">Contact</a>
                 <a href="faq.html"
                     class="px-4 py-2 border-2 border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400 rounded-lg font-semibold hover:bg-indigo-50 dark:hover:bg-slate-800">FAQ</a>
+                <a href="login.html"
+                    class="px-4 py-2 bg-indigo-600 text-white rounded-lg font-bold hover:bg-indigo-700 hover:shadow-lg transition">Login</a>
             </div>
         </div>
     </nav>
@@ -157,17 +161,17 @@
                         Calculator</h3>
                     <div class="space-y-3 text-sm">
                         <div>
-                            <label class="block text-indigo-200 mb-1">Product Cost ($)</label>
+                            <label class="block text-slate-600 dark:text-indigo-200 mb-1">Product Cost ($)</label>
                             <input type="number" id="roi-price-input" placeholder="e.g. 100"
                                 class="w-full px-3 py-2 rounded bg-indigo-800 border border-indigo-700 focus:outline-none text-white">
                         </div>
                         <div>
-                            <label class="block text-indigo-200 mb-1">Monthly Gain ($)</label>
+                            <label class="block text-slate-600 dark:text-indigo-200 mb-1">Monthly Gain ($)</label>
                             <input type="number" id="roi-usage-input" placeholder="e.g. 50"
                                 class="w-full px-3 py-2 rounded bg-indigo-800 border border-indigo-700 focus:outline-none text-white">
                         </div>
                         <div>
-                            <label class="block text-indigo-200 mb-1">Resale Value ($)</label>
+                            <label class="block text-slate-600 dark:text-indigo-200 mb-1">Resale Value ($)</label>
                             <input type="number" id="roi-resale-input" placeholder="e.g. 20"
                                 class="w-full px-3 py-2 rounded bg-indigo-800 border border-indigo-700 focus:outline-none text-white">
                         </div>
@@ -202,21 +206,24 @@
     </main>
 
     <!-- MASTER FOOTER (Compact 1x3) -->
-    <footer class="bg-indigo-950 text-white pt-3 md:pt-4 pb-2 md:pb-3">
+    <footer class="bg-white dark:bg-indigo-950 text-slate-800 dark:text-white pt-3 md:pt-4 pb-2 md:pb-3">
         <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 mb-2 md:mb-4">
             <!-- Col 1: Brand -->
             <div>
                 <div class="flex items-center gap-2 mb-2 md:mb-3">
-                    <div class="w-7 h-7 md:w-8 md:h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">
+                    <div
+                        class="w-7 h-7 md:w-8 md:h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">
                         B</div>
                     <span class="text-lg md:text-xl font-bold">ByWith</span>
                 </div>
-                <p class="text-indigo-200 text-xs md:text-sm">Empowering your business journey.</p>
+                <p class="text-slate-600 dark:text-indigo-200 text-xs md:text-sm">Empowering your business journey.</p>
             </div>
             <!-- Col 2: Quick Links (Merged) -->
             <div class="text-center md:text-start">
-                <h4 class="font-bold mb-2 md:mb-3 text-xs md:text-sm uppercase tracking-wider opacity-70">Quick Links</h4>
-                <div class="flex flex-wrap gap-3 md:gap-4 text-xs md:text-sm text-indigo-200 justify-center md:justify-start">
+                <h4 class="font-bold mb-2 md:mb-3 text-xs md:text-sm uppercase tracking-wider opacity-70">Quick Links
+                </h4>
+                <div
+                    class="flex flex-wrap gap-3 md:gap-4 text-xs md:text-sm text-slate-600 dark:text-indigo-200 justify-center md:justify-start">
                     <a href="product.html" class="hover:text-white transition">Products</a>
                     <a href="about.html" class="hover:text-white transition">About</a>
                     <a href="contact.html" class="hover:text-white transition">Contact</a>
@@ -240,16 +247,20 @@
                 </div>
             </div>
         </div>
-        <div class="border-t border-indigo-900 pt-2 md:pt-4 text-center text-xs text-indigo-400">&copy; 2025 ByWith Inc. All
+        <div class="border-t border-indigo-900 pt-2 md:pt-4 text-center text-xs text-indigo-400">&copy; 2025 ByWith Inc.
+            All
             rights reserved.</div>
     </footer>
 
     <!-- Product Details Modal -->
-    <div id="product-detail-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] overflow-y-auto p-4">
+    <div id="product-detail-modal"
+        class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] overflow-y-auto p-4">
         <div class="min-h-screen flex items-center justify-center py-8">
-            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-6xl w-full mx-auto transform transition-all relative">
+            <div
+                class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-6xl w-full mx-auto transform transition-all relative">
                 <!-- Close Button -->
-                <button onclick="closeProductModal()" class="absolute top-4 end-4 z-10 w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 hover:bg-red-500 hover:text-white transition flex items-center justify-center group">
+                <button onclick="closeProductModal()"
+                    class="absolute top-4 end-4 z-10 w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 hover:bg-red-500 hover:text-white transition flex items-center justify-center group">
                     <i class="fas fa-times text-lg"></i>
                 </button>
 
@@ -258,22 +269,28 @@
                     <div class="space-y-4">
                         <div class="relative rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-700 aspect-square">
                             <img id="modal-product-image" src="" alt="Product" class="w-full h-full object-cover">
-                            <div id="modal-product-category" class="absolute top-4 start-4 bg-indigo-600 text-white px-3 py-1 rounded-lg text-sm font-bold"></div>
+                            <div id="modal-product-category"
+                                class="absolute top-4 start-4 bg-indigo-600 text-white px-3 py-1 rounded-lg text-sm font-bold">
+                            </div>
                         </div>
                     </div>
 
                     <!-- Right: Product Info -->
                     <div class="space-y-6 overflow-y-auto max-h-[70vh]">
                         <div>
-                            <h2 id="modal-product-name" class="text-3xl md:text-4xl font-bold dark:text-white mb-2"></h2>
+                            <h2 id="modal-product-name" class="text-3xl md:text-4xl font-bold dark:text-white mb-2">
+                            </h2>
                             <div class="flex items-center gap-4 mb-4">
                                 <div id="modal-product-rating" class="text-yellow-400 text-lg"></div>
                                 <span id="modal-review-count" class="text-slate-500 dark:text-slate-400 text-sm"></span>
                             </div>
                             <div class="flex items-center gap-4 mb-4">
-                                <span id="modal-product-price" class="text-4xl font-bold text-indigo-600 dark:text-indigo-400"></span>
-                                <span id="modal-product-original-price" class="text-2xl text-slate-400 line-through"></span>
-                                <span id="modal-product-discount" class="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold"></span>
+                                <span id="modal-product-price"
+                                    class="text-4xl font-bold text-indigo-600 dark:text-indigo-400"></span>
+                                <span id="modal-product-original-price"
+                                    class="text-2xl text-slate-400 line-through"></span>
+                                <span id="modal-product-discount"
+                                    class="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold"></span>
                             </div>
                         </div>
 
@@ -282,7 +299,8 @@
                             <h3 class="text-xl font-bold dark:text-white mb-3 flex items-center gap-2">
                                 <i class="fas fa-info-circle text-indigo-600"></i> Description
                             </h3>
-                            <p id="modal-product-description" class="text-slate-600 dark:text-slate-300 leading-relaxed"></p>
+                            <p id="modal-product-description"
+                                class="text-slate-600 dark:text-slate-300 leading-relaxed"></p>
                         </div>
 
                         <!-- Features -->
@@ -303,10 +321,12 @@
 
                         <!-- Action Buttons -->
                         <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t dark:border-slate-700">
-                            <button onclick="addToCartFromModal()" class="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-6 rounded-lg font-bold hover:from-indigo-700 hover:to-purple-700 transition transform hover:scale-105 flex items-center justify-center gap-2">
+                            <button onclick="addToCartFromModal()"
+                                class="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-6 rounded-lg font-bold hover:from-indigo-700 hover:to-purple-700 transition transform hover:scale-105 flex items-center justify-center gap-2">
                                 <i class="fas fa-cart-plus"></i> Add to Cart
                             </button>
-                            <button onclick="buyNowFromModal()" class="flex-1 bg-gradient-to-r from-green-600 to-teal-600 text-white py-3 px-6 rounded-lg font-bold hover:from-green-700 hover:to-teal-700 transition transform hover:scale-105 flex items-center justify-center gap-2">
+                            <button onclick="buyNowFromModal()"
+                                class="flex-1 bg-gradient-to-r from-green-600 to-teal-600 text-white py-3 px-6 rounded-lg font-bold hover:from-green-700 hover:to-teal-700 transition transform hover:scale-105 flex items-center justify-center gap-2">
                                 <i class="fas fa-bolt"></i> Buy Now
                             </button>
                         </div>
@@ -321,30 +341,45 @@
                     <div id="modal-product-reviews" class="space-y-4 mb-6"></div>
 
                     <!-- Add Review Form -->
-                    <div class="bg-white dark:bg-slate-800 rounded-xl p-6 border-2 border-dashed border-slate-300 dark:border-slate-600">
+                    <div
+                        class="bg-white dark:bg-slate-800 rounded-xl p-6 border-2 border-dashed border-slate-300 dark:border-slate-600">
                         <h4 class="font-bold text-lg dark:text-white mb-4 flex items-center gap-2">
                             <i class="fas fa-comment-alt text-indigo-600"></i> Share Your Experience
                         </h4>
                         <div class="space-y-4">
                             <div>
                                 <label class="block text-sm font-semibold dark:text-slate-300 mb-2">Your Name</label>
-                                <input type="text" id="review-name" placeholder="Enter your name" class="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg dark:bg-slate-700 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition">
+                                <input type="text" id="review-name" placeholder="Enter your name"
+                                    class="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg dark:bg-slate-700 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition">
                             </div>
                             <div>
                                 <label class="block text-sm font-semibold dark:text-slate-300 mb-2">Rating</label>
                                 <div class="flex gap-2">
-                                    <button onclick="setReviewRating(1)" class="review-star text-2xl text-slate-300 hover:text-yellow-400 transition" data-rating="1"><i class="fas fa-star"></i></button>
-                                    <button onclick="setReviewRating(2)" class="review-star text-2xl text-slate-300 hover:text-yellow-400 transition" data-rating="2"><i class="fas fa-star"></i></button>
-                                    <button onclick="setReviewRating(3)" class="review-star text-2xl text-slate-300 hover:text-yellow-400 transition" data-rating="3"><i class="fas fa-star"></i></button>
-                                    <button onclick="setReviewRating(4)" class="review-star text-2xl text-slate-300 hover:text-yellow-400 transition" data-rating="4"><i class="fas fa-star"></i></button>
-                                    <button onclick="setReviewRating(5)" class="review-star text-2xl text-slate-300 hover:text-yellow-400 transition" data-rating="5"><i class="fas fa-star"></i></button>
+                                    <button onclick="setReviewRating(1)"
+                                        class="review-star text-2xl text-slate-300 hover:text-yellow-400 transition"
+                                        data-rating="1"><i class="fas fa-star"></i></button>
+                                    <button onclick="setReviewRating(2)"
+                                        class="review-star text-2xl text-slate-300 hover:text-yellow-400 transition"
+                                        data-rating="2"><i class="fas fa-star"></i></button>
+                                    <button onclick="setReviewRating(3)"
+                                        class="review-star text-2xl text-slate-300 hover:text-yellow-400 transition"
+                                        data-rating="3"><i class="fas fa-star"></i></button>
+                                    <button onclick="setReviewRating(4)"
+                                        class="review-star text-2xl text-slate-300 hover:text-yellow-400 transition"
+                                        data-rating="4"><i class="fas fa-star"></i></button>
+                                    <button onclick="setReviewRating(5)"
+                                        class="review-star text-2xl text-slate-300 hover:text-yellow-400 transition"
+                                        data-rating="5"><i class="fas fa-star"></i></button>
                                 </div>
                             </div>
                             <div>
                                 <label class="block text-sm font-semibold dark:text-slate-300 mb-2">Your Review</label>
-                                <textarea id="review-comment" rows="4" placeholder="Share your thoughts about this product..." class="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg dark:bg-slate-700 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition resize-none"></textarea>
+                                <textarea id="review-comment" rows="4"
+                                    placeholder="Share your thoughts about this product..."
+                                    class="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg dark:bg-slate-700 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition resize-none"></textarea>
                             </div>
-                            <button onclick="submitReview()" class="w-full bg-indigo-600 text-white py-3 rounded-lg font-bold hover:bg-indigo-700 transition flex items-center justify-center gap-2">
+                            <button onclick="submitReview()"
+                                class="w-full bg-indigo-600 text-white py-3 rounded-lg font-bold hover:bg-indigo-700 transition flex items-center justify-center gap-2">
                                 <i class="fas fa-paper-plane"></i> Submit Review
                             </button>
                         </div>
