@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>tailwind.config = { darkMode: 'class', theme: { extend: { colors: { slate: { 800: '#1e293b', 900: '#0f172a' } } } } }</script>
     <link href="./css/style.css" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -24,10 +25,7 @@
 
 <body class="bg-gray-50 text-slate-900 transition-colors duration-300 dark:bg-slate-900 dark:text-white">
 
-    <div id="preloader">
-        <div class="trolley-container"><i class="fas fa-shopping-cart trolley"></i></div>
-        <div class="loading-spinner"></div>
-    </div>
+
 
     <!-- MASTER NAVBAR -->
     <nav
@@ -197,6 +195,13 @@
                 <button
                     class="flex items-center gap-3 px-4 py-3 rounded-lg text-left text-sm font-medium text-slate-500 hover:bg-white hover:text-indigo-600 dark:hover:bg-slate-800 transition"
                     data-tab-target="#analytics"><i class="fas fa-chart-line w-5"></i> Analytics</button>
+
+                <div class="mt-auto pt-4 md:pt-8">
+                    <a href="index.html"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg text-left text-sm font-medium text-red-500 hover:bg-white hover:text-red-600 dark:hover:bg-slate-800 transition">
+                        <i class="fas fa-sign-out-alt w-5"></i> Logout
+                    </a>
+                </div>
             </div>
 
             <!-- Content Area -->
@@ -208,7 +213,8 @@
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
                         <div
                             class="p-6 rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-600 text-white shadow-lg">
-                            <div class="text-slate-600 dark:text-indigo-200 text-sm mb-1 uppercase tracking-wider">Total Spent</div>
+                            <div class="text-slate-600 dark:text-indigo-200 text-sm mb-1 uppercase tracking-wider">Total
+                                Spent</div>
                             <div class="text-3xl font-bold">$4,250.00</div>
                         </div>
                         <div
@@ -599,55 +605,7 @@
             </div>
         </div>
 
-        <!-- MASTER FOOTER (Compact 1x3) -->
-        <footer class="bg-white dark:bg-indigo-950 text-slate-800 dark:text-white pt-3 md:pt-4 pb-2 md:pb-3">
-            <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 mb-2 md:mb-4">
-                <!-- Col 1: Brand -->
-                <div>
-                    <div class="flex items-center gap-2 mb-2 md:mb-3">
-                        <div
-                            class="w-7 h-7 md:w-8 md:h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">
-                            B</div>
-                        <span class="text-lg md:text-xl font-bold">ByWith</span>
-                    </div>
-                    <p class="text-slate-600 dark:text-indigo-200 text-xs md:text-sm">Empowering your business journey.</p>
-                </div>
-                <!-- Col 2: Quick Links (Merged) -->
-                <div class="text-center md:text-start">
-                    <h4 class="font-bold mb-2 md:mb-3 text-xs md:text-sm uppercase tracking-wider opacity-70">Quick
-                        Links
-                    </h4>
-                    <div
-                        class="flex flex-wrap gap-3 md:gap-4 text-xs md:text-sm text-slate-600 dark:text-indigo-200 justify-center md:justify-start">
-                        <a href="product.html" class="hover:text-white transition">Products</a>
-                        <a href="about.html" class="hover:text-white transition">About</a>
-                        <a href="contact.html" class="hover:text-white transition">Contact</a>
-                        <a href="faq.html" class="hover:text-white transition">FAQ</a>
-                        <a href="user-dashboard.html" class="hover:text-white transition">My Account</a>
-                    </div>
-                </div>
-                <!-- Col 3: Connect -->
-                <div class="flex flex-col md:items-end items-center">
-                    <h4 class="font-bold mb-2 md:mb-3 text-xs md:text-sm uppercase tracking-wider opacity-70">Connect
-                    </h4>
-                    <div class="flex gap-3 md:gap-4">
-                        <a href="#"
-                            class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-indigo-600 transition"><i
-                                class="fab fa-linkedin-in text-xs"></i></a>
-                        <a href="#"
-                            class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-indigo-600 transition"><i
-                                class="fab fa-twitter text-xs"></i></a>
-                        <a href="#"
-                            class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-indigo-600 transition"><i
-                                class="fab fa-instagram text-xs"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="border-t border-indigo-900 pt-2 md:pt-4 text-center text-xs text-indigo-400">&copy; 2025 ByWith
-                Inc.
-                All
-                rights reserved.</div>
-        </footer>
+
 
         <script src="./js/rtl-toggle.js"></script>
         <script src="./js/main.js"></script>

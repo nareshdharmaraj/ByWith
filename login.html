@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>tailwind.config = { darkMode: 'class', theme: { extend: { colors: { slate: { 800: '#1e293b', 900: '#0f172a' } } } } }</script>
     <link href="./css/style.css" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .switch-container {
@@ -44,10 +45,7 @@
 <body
     class="bg-gray-100 dark:bg-slate-900 flex items-center justify-center min-h-screen p-4 transition-colors duration-300">
 
-    <div id="preloader">
-        <div class="trolley-container"><i class="fas fa-shopping-cart trolley"></i></div>
-        <div class="loading-spinner"></div>
-    </div>
+
 
     <!-- Main Card -->
     <div
@@ -95,7 +93,9 @@
         <div class="form-container md:left-0 md:z-20 bg-white dark:bg-slate-800 flex items-center justify-center p-8 w-full md:w-1/2"
             id="signInForm">
             <form class="w-full max-w-sm text-center">
-                <h1 class="font-bold text-3xl mb-4 dark:text-white">Sign in to ByWith</h1>
+                <h1 class="font-bold text-3xl mb-4 dark:text-white">Sign in to <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-indigo-400">ByWith</span>
+                </h1>
                 <div class="flex justify-center gap-4 mb-4">
                     <a href="#"
                         class="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50 dark:border-slate-600 dark:hover:bg-slate-700 dark:text-white"><i

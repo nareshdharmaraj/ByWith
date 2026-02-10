@@ -6,7 +6,12 @@
  */
 function hidePreloader() {
     const preloader = document.getElementById('preloader');
-    if (!preloader) return;
+    
+    // If preloader doesn't exist (removed), start counters immediately
+    if (!preloader) {
+        startCounters();
+        return;
+    }
 
     // Prevent multiple calls
     if (preloader.getAttribute('data-hidden') === 'true') return;
